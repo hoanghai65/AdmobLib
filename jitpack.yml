@@ -5,5 +5,5 @@ jdk:
 before_install:
   - ./scripts/prepareJitpackEnvironment.sh
 install:
-  - FILE="-Dfile=yourSDKName.aar" #com-atifqamar-customtoast.aar
-  - mvn install:install-file $FILE -DgroupId=com.github.yourgithubUserName -DartifactId=yourArtifactId -Dversion=yourVersion -Dpackaging=aar -DgeneratePom=t
+  - FILE="-Dfile=hoanghai65-admob.aar" #com-atifqamar-customtoast.aar
+  - mvn install:install-file $FILE -DgroupId=com.github.hoanghai65 -DartifactId=com-hoanghai65-admoblib -Dversion=1.0.1 -Dpackaging=aar -DgeneratePom=t
