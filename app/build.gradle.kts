@@ -13,7 +13,7 @@ android {
     defaultConfig {
 //        applicationId = "com.haihd1.admoblib"
         minSdk = 24
-        targetSdk = 33
+        testOptions.targetSdk = 33
 //        versionCode = 1
 //        versionName = "1.0"
 
