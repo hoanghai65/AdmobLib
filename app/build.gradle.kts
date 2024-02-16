@@ -1,8 +1,7 @@
 
 plugins {
-    id("com.android.library")
-//    id("com.android.application")
-    id("maven-publish")
+//    id("com.android.library")
+    id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -11,11 +10,11 @@ android {
     compileSdk = 33
 
     defaultConfig {
-//        applicationId = "com.haihd1.admoblib"
+        applicationId = "com.haihd1.admoblib"
         minSdk = 24
-        testOptions.targetSdk = 33
-//        versionCode = 1
-//        versionName = "1.0"
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,16 +34,9 @@ android {
     }
 
 }
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)        // << --- ADD This
-    }
-}
-java {
-    sourceCompatibility = JavaVersion.VERSION_17            // << --- ADD This
-    targetCompatibility = JavaVersion.VERSION_17
-}
+
 dependencies {
+    implementation(project(":admoblibrary"))
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
@@ -59,18 +51,3 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.hoanghai65"
-            artifactId = "AdmobLib"
-            version = "1.0.2"
-            pom {
-                description.set("First release")
-            }
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
-}

@@ -29,6 +29,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 java {
     toolchain {
@@ -60,8 +63,8 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.hoanghai65"
-            artifactId = "com-hoanghai65-admoblib"
-            version = "1.0"
+            artifactId = "AdmobLib"
+            version = "1.0.0"
             pom {
                 description.set("First release")
             }
