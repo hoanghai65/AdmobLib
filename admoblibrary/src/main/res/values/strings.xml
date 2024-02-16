@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AdmobLib</string>
+    <string name="loading_ads">Loading Ads…</string>
+</resources>

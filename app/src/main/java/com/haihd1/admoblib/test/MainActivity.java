@@ -15,16 +15,13 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
+import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 import com.haihd1.admoblib.R;
-import com.haihd1.admoblib.abstract_factory.factory_method.model.banner.COLLAPSE_BANNER_POSITION;
-import com.haihd1.admoblib.abstract_factory.factory_method.model.banner.CollapseBannerModel;
-import com.haihd1.admoblib.abstract_factory.factory_method.model.interstitial.ActionCallBack;
-import com.haihd1.admoblib.abstract_factory.factory_method.model.interstitial.InterstitialManager;
 import com.haihd1.admoblib.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
-import com.haihd1.admoblib.admob_builder.AdmobCallBack;
-import com.haihd1.admoblib.admob_builder.AdmobManager;
-import com.haihd1.admoblib.abstract_factory.factory_method.model.TYPE;
-import com.haihd1.admoblib.admob_builder.GoogleMobileAdsConsentManager;
 
 public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
