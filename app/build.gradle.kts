@@ -63,8 +63,8 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "com.github.hoanghai65"
-            artifactId = "com-hoanghai65-admoblib"
-            version = "1.0"
+            artifactId = "AdmobLib"
+            version = "1.0.2"
             pom {
                 description.set("First release")
             }
