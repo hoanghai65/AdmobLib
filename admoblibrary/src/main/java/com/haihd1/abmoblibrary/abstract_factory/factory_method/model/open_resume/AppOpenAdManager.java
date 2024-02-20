@@ -13,18 +13,24 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.callback.UMPResultListener;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.LoadingAdsDialog;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.observer.Subject;
 
 import java.util.Date;
 import java.util.List;
 
 public class AppOpenAdManager extends AppOpenAbstract {
+
+    private Subject mSubject;
+    private UMPResultListener mUmpResultListener;
+    private Activity mActivity;
+
     private static final String LOG_TAG = "AppOpenAdManager";
     private String AD_UNIT_ID = "ca-app-pub-3940256099942544/9257395921";
-
 
     private static AppOpenAdManager instance;
 
@@ -37,6 +43,15 @@ public class AppOpenAdManager extends AppOpenAbstract {
         return instance;
     }
 
+    public void setSubject(Subject subject){
+        mSubject = subject;
+    }
+    public void setUmpListener(UMPResultListener umpResultListener){
+        mUmpResultListener = umpResultListener;
+    }
+    public void setActivity(Activity activity){
+        mActivity = activity;
+    }
     @Override
     public void initId(String id) {
         AD_UNIT_ID = id;
@@ -107,6 +122,9 @@ public class AppOpenAdManager extends AppOpenAbstract {
                 isLoadingAd = false;
                 loadTime = (new Date()).getTime();
                 Log.d(LOG_TAG, "onAdLoaded.");
+                if (mSubject != null){
+                    mSubject.setState(mActivity,mUmpResultListener);
+                }
                 if (admobCallBack != null) {
                     admobCallBack.onAdLoaded();
                 }

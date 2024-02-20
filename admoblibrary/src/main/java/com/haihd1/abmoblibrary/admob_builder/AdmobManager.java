@@ -15,13 +15,16 @@ import com.google.android.ump.FormError;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native.NativeManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.BannerManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.COLLAPSE_BANNER_POSITION;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.callback.UMPResultListener;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AdsApplication;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
+import com.haihd1.abmoblibrary.observer.Observer;
+import com.haihd1.abmoblibrary.observer.Subject;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class AdmobManager {
+public class AdmobManager extends Observer {
 //    private AdmobHelper admob;
 
     private static AdmobManager INSTANCE;
@@ -35,9 +38,21 @@ public class AdmobManager {
     private final AtomicBoolean isMobileAdsInitializeCalled = new AtomicBoolean(false);
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
 
-    public interface UMPResultListener{
-        public void  umpResultListener();
+    @Override
+    public void update(Activity activity, UMPResultListener umpResultListener) {
+        if (activity != null && umpResultListener != null) {
+            AppOpenAdManager.getInstance().showAdIfAvailable(activity, new AdsApplication.OnShowAdCompleteListener() {
+                @Override
+                public void onShowAdComplete() {
+                    umpResultListener.umpResultListener();
+                    removeObserver();
+                }
+            });
+        }
     }
+
+
+
 
     public AdmobManager() {
 
@@ -63,8 +78,6 @@ public class AdmobManager {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return;
         }
-
-
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(
                 context,
@@ -79,6 +92,7 @@ public class AdmobManager {
     }
 
     public void initUmp(Activity activity, boolean reset,UMPResultListener umpResultListener){
+        obServerAppOpen(activity,umpResultListener);
         googleMobileAdsConsentManager =
                 GoogleMobileAdsConsentManager.getInstance(activity);
         googleMobileAdsConsentManager.gatherConsent(activity,reset, new GoogleMobileAdsConsentManager.OnConsentGatheringCompleteListener() {
@@ -100,12 +114,7 @@ public class AdmobManager {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        AppOpenAdManager.getInstance().showAdIfAvailable(activity, new AdsApplication.OnShowAdCompleteListener() {
-                            @Override
-                            public void onShowAdComplete() {
-                                umpResultListener.umpResultListener();
-                            }
-                        });
+
                     }
                 },5000L);
 
@@ -117,6 +126,21 @@ public class AdmobManager {
         }
     }
 
+    private void obServerAppOpen(Activity activity,UMPResultListener umpResultListener){
+        Subject subject = new Subject();
+        AppOpenAdManager.getInstance().setSubject(subject);
+        AppOpenAdManager.getInstance().setUmpListener(umpResultListener);
+        AppOpenAdManager.getInstance().setActivity(activity);
+        this.subject = subject;
+        this.subject.attach(this);
+    }
+
+    private void removeObserver(){
+        if (this.subject != null){
+            this.subject.remove(this);
+            this.subject = null;
+        }
+    }
     ///-----------------------------------------
     /// banner ads
     public void loadBanner(Activity activity, String id, ViewGroup frameLayout) {
