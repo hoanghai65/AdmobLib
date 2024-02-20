@@ -38,4 +38,10 @@
 -keep class com.haihd1.abmoblibrary.admob_builder.AdmobCallBack {*;}
 -keep class com.haihd1.abmoblibrary.admob_builder.AdmobManager {*;}
 -keep class com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager {*;}
+-keep class com.github.ybq.**{*;}
+-keep class com.facebook.shimmer.**{*;}
+-keep class com.google.android.material.**{*;}
+-keep class com.google.android.gms.**{*;}
+-keep class com.google.android.ump.**{*;}
+
 

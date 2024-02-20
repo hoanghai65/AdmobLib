@@ -93,58 +93,39 @@ public class BannerManager {
     ///-----------------------------------------
     // CollapseBanner ads
     public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position) {
-        try {
-            BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
-            if (bannerAds != null) {
-                bannerAds.loadAdmob(activity);
-            }
-
-        } catch (Exception exception) {
-            Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
+        BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
+        if (bannerAds != null) {
+            bannerAds.loadAdmob(activity);
         }
-
     }
 
     public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, AdmobCallBack admobCallBack) {
-        try {
-            BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
-            if (bannerAds != null) {
-                bannerAds.setAdmobCallBack(admobCallBack);
-                bannerAds.loadAdmob(activity);
-            }
-        } catch (Exception exception) {
-            Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
+        BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
+        if (bannerAds != null) {
+            bannerAds.setAdmobCallBack(admobCallBack);
+            bannerAds.loadAdmob(activity);
         }
 
     }
 
 
     public void loadCollapseBanner(Activity activity, Lifecycle lifecycle, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, boolean reload) {
-        try {
-            BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
-            if (bannerAds != null) {
-                bannerAds.initLifecycle(lifecycle);
-                bannerAds.setReload(reload);
-                bannerAds.loadAdmob(activity);
-            }
-
-        } catch (Exception exception) {
-            Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
+        BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
+        if (bannerAds != null) {
+            bannerAds.initLifecycle(lifecycle);
+            bannerAds.setReload(reload);
+            bannerAds.loadAdmob(activity);
         }
 
     }
 
     public void loadCollapseBanner(Activity activity, Lifecycle lifecycle, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, boolean reload, AdmobCallBack admobCallBack) {
-        try {
-            BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
-            if (bannerAds != null) {
-                bannerAds.initLifecycle(lifecycle);
-                bannerAds.setReload(reload);
-                bannerAds.setAdmobCallBack(admobCallBack);
-                bannerAds.loadAdmob(activity);
-            }
-        } catch (Exception exception) {
-            Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
+        BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
+        if (bannerAds != null) {
+            bannerAds.initLifecycle(lifecycle);
+            bannerAds.setReload(reload);
+            bannerAds.setAdmobCallBack(admobCallBack);
+            bannerAds.loadAdmob(activity);
         }
 
     }

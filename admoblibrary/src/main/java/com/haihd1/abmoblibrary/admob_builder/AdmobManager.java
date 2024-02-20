@@ -2,6 +2,7 @@ package com.haihd1.abmoblibrary.admob_builder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -15,6 +16,8 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native.
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.BannerManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.COLLAPSE_BANNER_POSITION;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AdsApplication;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -81,10 +84,11 @@ public class AdmobManager {
         googleMobileAdsConsentManager.gatherConsent(activity,reset, new GoogleMobileAdsConsentManager.OnConsentGatheringCompleteListener() {
             @Override
             public void consentGatheringComplete(FormError consentError) {
+                Log.e("tttttttttt", "consentGatheringComplete: " + GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)  + "   " + consentError);
                 if (consentError != null) {
                     // Consent not obtained in current session.
                     Log.w(
-                            "aaaaaaaaaaaaa",
+                            "tttttttttt",
                             String.format(
                                     "%s: %s",
                                     consentError.getErrorCode(),
@@ -93,7 +97,18 @@ public class AdmobManager {
                 if (googleMobileAdsConsentManager.canRequestAds()) {
                     initializeMobileAdsSdk(activity);
                 }
-                umpResultListener.umpResultListener();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppOpenAdManager.getInstance().showAdIfAvailable(activity, new AdsApplication.OnShowAdCompleteListener() {
+                            @Override
+                            public void onShowAdComplete() {
+                                umpResultListener.umpResultListener();
+                            }
+                        });
+                    }
+                },5000L);
+
             }
         });
 

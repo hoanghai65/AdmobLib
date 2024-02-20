@@ -17,11 +17,11 @@ import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 import com.haihd1.admoblib.R;
-import com.haihd1.admoblib.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 
 public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
@@ -46,9 +46,11 @@ public class MainActivity extends AppCompatActivity {
 //        admobManagerBanner
 //                .loadCollapseBanner(this, "ca-app-pub-3940256099942544/2014213617", frameLayout2, COLLAPSE_BANNER_POSITION.top)
 //                .build();
-            AdmobManager.getInstance()
-                    .loadNative(this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
+            startActivity(new Intent(MainActivity.this, MainActivity2.class));
+
         });
+        AdmobManager.getInstance()
+                .loadNative(this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
         AdmobManager.getInstance()
                 .loadBanner(this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
 
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        AppOpenAdManager.getInstance().disableAppOpenResumeActivity(this);
+//        AppOpenAdManager.getInstance().disableAppOpenResumeActivity(this);
         Log.e("aaaaaaaaaaaaa", "onActivityResumed: 111" );
     }
 }
