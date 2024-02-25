@@ -15,12 +15,12 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
+import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
+import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 import com.haihd1.admoblib.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +30,20 @@ public class MainActivity extends AppCompatActivity {
     private Button btnEnter;
     private InterstitialManager interstitialManager;
 
+    private ActionCallBack appOpenCallBack = new ActionCallBack() {
+        @Override
+        public void onNextAction() {
+            startActivity(new Intent(MainActivity.this, MainActivity2.class));
+
+        }
+    };
+    private ActionCallBack interCallBack = new ActionCallBack() {
+        @Override
+        public void onNextAction() {
+//            startActivity(new Intent(MainActivity.this, MainActivity2.class));
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +55,21 @@ public class MainActivity extends AppCompatActivity {
         btnEnter = findViewById(R.id.btnEnter);
         interstitialManager = AdmobManager.getInstance().createInter();
         interstitialManager.loadInter(this, AdmobManager.id_test_inter);
-        AdmobManager.getInstance().initUmp(this, !GoogleMobileAdsConsentManager.getInstance(this).getConsentResult(this),() -> {
+        Log.e("aaaaaaaaaaaaa", "onCreate: rrrr");
 
-//        admobManagerBanner
-//                .loadCollapseBanner(this, "ca-app-pub-3940256099942544/2014213617", frameLayout2, COLLAPSE_BANNER_POSITION.top)
-//                .build();
-            startActivity(new Intent(MainActivity.this, MainActivity2.class));
+        AdmobManager.getInstance().initUmp(MainActivity.this,
+                !GoogleMobileAdsConsentManager.getInstance(this).getConsentResult(this),
+                new UMPResultListener() {
+                    @Override
+                    public void umpResultListener() {
+                        AdmobManager.getInstance().adsSplash(MainActivity.this,
+                                "ca-app-pub-3940256099942544/9257395921",
+                                "ca-app-pub-3940256099942544/8691691433",
+                                appOpenCallBack, interCallBack);
+                    }
+                });
 
-        });
+
         AdmobManager.getInstance()
                 .loadNative(this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
         AdmobManager.getInstance()
@@ -100,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void loadNative() {
         AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
@@ -129,6 +149,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 //        AppOpenAdManager.getInstance().disableAppOpenResumeActivity(this);
-        Log.e("aaaaaaaaaaaaa", "onActivityResumed: 111" );
+        Log.e("aaaaaaaaaaaaa", "onActivityResumed: 111");
     }
 }

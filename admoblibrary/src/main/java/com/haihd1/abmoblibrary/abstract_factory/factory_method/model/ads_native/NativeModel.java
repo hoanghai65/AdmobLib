@@ -19,7 +19,7 @@ import com.google.android.gms.ads.VideoOptions;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
+import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 

@@ -13,14 +13,21 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
+import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.observer.Subject;
+import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
 import java.util.List;
 
 public class InterstitialModel extends InterstitialAbstract {
     private String AD_UNIT_ID;
     private List<String> AD_LIST_ID;
+    private Subject mSubject;
+    private Activity mActivity;
+
 
     @Override
     public void initId(String id) {
@@ -36,6 +43,7 @@ public class InterstitialModel extends InterstitialAbstract {
     public void initLayout(ViewGroup frameLayout) {
 
     }
+
 
     @Override
     public void loadAdmob(Activity activity) {
@@ -66,6 +74,9 @@ public class InterstitialModel extends InterstitialAbstract {
                 super.onAdLoaded(interstitialAd);
                 adIsLoading = false;
                 mInterstitialAd = interstitialAd;
+                if (mSubject != null && !isNotInterSplash){
+                    mSubject.setState(activity,actionCallBack, TYPE.INTER);
+                }
                 Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
                 mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
                 admobCallBack.onAdLoaded();
@@ -127,7 +138,9 @@ public class InterstitialModel extends InterstitialAbstract {
 
             @Override
             public void onAdShowedFullScreenContent() {
-                loadAdmob(activity);
+                if (isNotInterSplash) {
+                    loadAdmob(activity);
+                }
                 Log.e("iiiiiiiiiiiiiiii", "onAdShowedFullScreenContent");
             }
         };
@@ -160,4 +173,16 @@ public class InterstitialModel extends InterstitialAbstract {
             loadAdmob(activity);
         }
     }
+
+
+
+    @Override
+    protected void setSubject(Subject subject) {
+        mSubject = subject;
+    }
+    @Override
+    public void setActivity(Activity activity){
+        mActivity = activity;
+    }
+
 }

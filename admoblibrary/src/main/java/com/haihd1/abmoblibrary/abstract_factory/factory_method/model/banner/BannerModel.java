@@ -12,7 +12,7 @@ import androidx.lifecycle.LifecycleOwner;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
+import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 

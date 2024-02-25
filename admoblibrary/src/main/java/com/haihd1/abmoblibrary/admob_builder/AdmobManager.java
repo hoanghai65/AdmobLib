@@ -2,7 +2,6 @@ package com.haihd1.abmoblibrary.admob_builder;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -12,15 +11,16 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.ump.FormError;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native.NativeManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.BannerManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.COLLAPSE_BANNER_POSITION;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.callback.UMPResultListener;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AdsApplication;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.observer.Observer;
 import com.haihd1.abmoblibrary.observer.Subject;
+import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -39,20 +39,30 @@ public class AdmobManager extends Observer {
     private GoogleMobileAdsConsentManager googleMobileAdsConsentManager;
 
     @Override
-    public void update(Activity activity, UMPResultListener umpResultListener) {
-        if (activity != null && umpResultListener != null) {
-            AppOpenAdManager.getInstance().showAdIfAvailable(activity, new AdsApplication.OnShowAdCompleteListener() {
-                @Override
-                public void onShowAdComplete() {
-                    umpResultListener.umpResultListener();
-                    removeObserver();
-                }
-            });
+    public void onListenerLoadedAds(Activity activity, ActionCallBack actionCallBack, TYPE type) {
+        if (activity != null && actionCallBack != null) {
+            if (type == TYPE.INTER){
+                InterstitialManager.getInstance().showInter(activity, new ActionCallBack() {
+                    @Override
+                    public void onNextAction() {
+                        removeObserver();
+                        actionCallBack.onNextAction();
+                    }
+                });
+            }
+            else if (type == TYPE.APP_OPEN){
+                AppOpenAdManager.getInstance().showAdIfAvailable(activity, new AdsApplication.OnShowAdCompleteListener() {
+                    @Override
+                    public void onShowAdComplete() {
+                        actionCallBack.onNextAction();
+                        removeObserver();
+                    }
+                });
+            }
+
+//
         }
     }
-
-
-
 
     public AdmobManager() {
 
@@ -70,11 +80,12 @@ public class AdmobManager extends Observer {
     public AtomicBoolean getIsMobileAdsInitializeCalled() {
         return isMobileAdsInitializeCalled;
     }
-    public void setIsMobileAdsInitializeCalled(){
+
+    public void setIsMobileAdsInitializeCalled() {
         isMobileAdsInitializeCalled.set(true);
     }
 
-    public void initializeMobileAdsSdk(Context context){
+    public void initializeMobileAdsSdk(Context context) {
         if (isMobileAdsInitializeCalled.getAndSet(true)) {
             return;
         }
@@ -91,14 +102,13 @@ public class AdmobManager extends Observer {
                 });
     }
 
-    public void initUmp(Activity activity, boolean reset,UMPResultListener umpResultListener){
-        obServerAppOpen(activity,umpResultListener);
+    public void initUmp(Activity activity, boolean reset, UMPResultListener umpResultListener) {
         googleMobileAdsConsentManager =
                 GoogleMobileAdsConsentManager.getInstance(activity);
-        googleMobileAdsConsentManager.gatherConsent(activity,reset, new GoogleMobileAdsConsentManager.OnConsentGatheringCompleteListener() {
+        googleMobileAdsConsentManager.gatherConsent(activity, reset, new GoogleMobileAdsConsentManager.OnConsentGatheringCompleteListener() {
             @Override
             public void consentGatheringComplete(FormError consentError) {
-                Log.e("tttttttttt", "consentGatheringComplete: " + GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)  + "   " + consentError);
+                Log.e("tttttttttt", "consentGatheringComplete: " + GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity) + "   " + consentError);
                 if (consentError != null) {
                     // Consent not obtained in current session.
                     Log.w(
@@ -110,13 +120,9 @@ public class AdmobManager extends Observer {
                 }
                 if (googleMobileAdsConsentManager.canRequestAds()) {
                     initializeMobileAdsSdk(activity);
-                }
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
 
-                    }
-                },5000L);
+                }
+                umpResultListener.umpResultListener();
 
             }
         });
@@ -126,21 +132,40 @@ public class AdmobManager extends Observer {
         }
     }
 
-    private void obServerAppOpen(Activity activity,UMPResultListener umpResultListener){
+    public void adsSplash(Activity activity, String idAppOpenSplash, String idInterSplash, ActionCallBack appOpenCallBack, ActionCallBack interCallBack) {
+//        obServerInter(activity, interCallBack);
+//        InterstitialManager.getInstance().loadInterSplash(activity, idInterSplash);
+
+        obServerAppOpen(activity,appOpenCallBack);
+        AppOpenAdManager.getInstance().loadAppOpenSplash(activity,idAppOpenSplash);
+    }
+
+    private void obServerAppOpen(Activity activity, ActionCallBack actionCallBack) {
         Subject subject = new Subject();
         AppOpenAdManager.getInstance().setSubject(subject);
-        AppOpenAdManager.getInstance().setUmpListener(umpResultListener);
+        AppOpenAdManager.getInstance().setActionCallBack(actionCallBack);
         AppOpenAdManager.getInstance().setActivity(activity);
         this.subject = subject;
         this.subject.attach(this);
     }
 
-    private void removeObserver(){
-        if (this.subject != null){
+    private void obServerInter(Activity activity, ActionCallBack actionCallBack) {
+        Subject subject = new Subject();
+        InterstitialManager.getInstance().initInter();
+        InterstitialManager.getInstance().setSubject(subject);
+        InterstitialManager.getInstance().setActionCallBack(actionCallBack);
+        InterstitialManager.getInstance().setActivity(activity);
+        this.subject = subject;
+        this.subject.attach(this);
+    }
+
+    private void removeObserver() {
+        if (this.subject != null) {
             this.subject.remove(this);
             this.subject = null;
         }
     }
+
     ///-----------------------------------------
     /// banner ads
     public void loadBanner(Activity activity, String id, ViewGroup frameLayout) {

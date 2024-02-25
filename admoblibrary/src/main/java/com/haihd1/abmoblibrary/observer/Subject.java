@@ -2,22 +2,18 @@ package com.haihd1.abmoblibrary.observer;
 
 import android.app.Activity;
 
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.callback.UMPResultListener;
-import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
+import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Subject {
 
-    private List<Observer> observers = new ArrayList<>();
-    private int state;
-    public int getState() {
-        return state;
-    }
+    private final List<Observer> observers = new ArrayList<>();
 
-    public void setState(Activity activity,UMPResultListener umpResultListener) {
-        notifyAllObservers(activity,umpResultListener);
+    public void setState(Activity activity,ActionCallBack actionCallBack,TYPE type) {
+        notifyAllObservers(activity,actionCallBack,type);
     }
 
     public void attach(Observer observer) {
@@ -28,9 +24,9 @@ public class Subject {
         observers.remove(observer);
     }
 
-    public void notifyAllObservers(Activity activity, UMPResultListener umpResultListener) {
+    public void notifyAllObservers(Activity activity, ActionCallBack actionCallBack, TYPE type) {
         for (Observer observer : observers) {
-            observer.update(activity,umpResultListener);
+            observer.onListenerLoadedAds(activity,actionCallBack,type);
         }
     }
 }
