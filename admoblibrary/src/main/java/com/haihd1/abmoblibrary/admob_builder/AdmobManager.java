@@ -20,6 +20,7 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.observer.Observer;
 import com.haihd1.abmoblibrary.observer.Subject;
+import com.haihd1.abmoblibrary.utils.ShowAdsSplashHelper;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -63,11 +64,9 @@ public class AdmobManager extends Observer {
 //
         }
     }
-
     public AdmobManager() {
 
     }
-
     public static AdmobManager getInstance() {
         synchronized (AdmobManager.class) {
             if (INSTANCE == null) {
@@ -76,7 +75,6 @@ public class AdmobManager extends Observer {
         }
         return INSTANCE;
     }
-
     public AtomicBoolean getIsMobileAdsInitializeCalled() {
         return isMobileAdsInitializeCalled;
     }
@@ -133,11 +131,13 @@ public class AdmobManager extends Observer {
     }
 
     public void adsSplash(Activity activity, String idAppOpenSplash, String idInterSplash, ActionCallBack appOpenCallBack, ActionCallBack interCallBack) {
-//        obServerInter(activity, interCallBack);
-//        InterstitialManager.getInstance().loadInterSplash(activity, idInterSplash);
-
-        obServerAppOpen(activity,appOpenCallBack);
-        AppOpenAdManager.getInstance().loadAppOpenSplash(activity,idAppOpenSplash);
+        if (TYPE.APP_OPEN ==  ShowAdsSplashHelper.adsTypeSplash()) {
+            obServerAppOpen(activity, appOpenCallBack);
+            AppOpenAdManager.getInstance().loadAppOpenSplash(activity, idAppOpenSplash);
+        }else {
+            obServerInter(activity, interCallBack);
+            InterstitialManager.getInstance().loadInterSplash(activity, idInterSplash);
+        }
     }
 
     private void obServerAppOpen(Activity activity, ActionCallBack actionCallBack) {

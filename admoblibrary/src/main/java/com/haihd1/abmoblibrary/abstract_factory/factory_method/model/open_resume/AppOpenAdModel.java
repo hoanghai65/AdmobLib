@@ -18,6 +18,7 @@ import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.LoadingAdsDialog;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 import com.haihd1.abmoblibrary.observer.Subject;
 
 import java.util.Date;
@@ -55,7 +56,9 @@ public class AppOpenAdModel extends AppOpenAbstract {
 
     @Override
     public void loadAdmob(Activity activity) {
-//        loadAds(activity);
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            loadAds(activity);
+        }
     }
 
     @Override

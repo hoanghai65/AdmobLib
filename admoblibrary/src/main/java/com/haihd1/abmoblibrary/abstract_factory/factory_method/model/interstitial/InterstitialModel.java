@@ -17,6 +17,7 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 import com.haihd1.abmoblibrary.observer.Subject;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
@@ -47,41 +48,44 @@ public class InterstitialModel extends InterstitialAbstract {
 
     @Override
     public void loadAdmob(Activity activity) {
-        AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-        Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
-        if (adIsLoading) {
-            Log.e("iiiiiiiiiiiiiiii", "sddddd");
-            return;
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+
+            Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
+            if (adIsLoading) {
+                Log.e("iiiiiiiiiiiiiiii", "sddddd");
+                return;
+            }
+            adIsLoading = true;
+            AdRequest adRequest = new AdRequest.Builder().build();
+            InterstitialAd.load(activity, AD_UNIT_ID, adRequest, new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adIsLoading = false;
+                    mInterstitialAd = null;
+                    Log.e("iiiiiiiiiiiiiiii", " onAdFailedToLoad");
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdFailedToLoad();
+                    }
+                    actionCallBack.onNextAction();
+
+                }
+
+                @Override
+                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                    super.onAdLoaded(interstitialAd);
+                    adIsLoading = false;
+                    mInterstitialAd = interstitialAd;
+                    if (mSubject != null && !isNotInterSplash) {
+                        mSubject.setState(activity, actionCallBack, TYPE.INTER);
+                    }
+                    Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
+                    mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
+                    admobCallBack.onAdLoaded();
+                }
+            });
         }
-        adIsLoading = true;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(activity, AD_UNIT_ID, adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adIsLoading = false;
-                mInterstitialAd = null;
-                Log.e("iiiiiiiiiiiiiiii", " onAdFailedToLoad");
-                if (admobCallBack != null) {
-                    admobCallBack.onAdFailedToLoad();
-                }
-                actionCallBack.onNextAction();
-
-            }
-
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                super.onAdLoaded(interstitialAd);
-                adIsLoading = false;
-                mInterstitialAd = interstitialAd;
-                if (mSubject != null && !isNotInterSplash){
-                    mSubject.setState(activity,actionCallBack, TYPE.INTER);
-                }
-                Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
-                mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
-                admobCallBack.onAdLoaded();
-            }
-        });
     }
 
     @Override

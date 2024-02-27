@@ -9,12 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.nativead.NativeAd;
-import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
 import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
@@ -64,16 +58,17 @@ public class MainActivity extends AppCompatActivity {
                     public void umpResultListener() {
                         AdmobManager.getInstance().adsSplash(MainActivity.this,
                                 "ca-app-pub-3940256099942544/9257395921",
-                                "ca-app-pub-3940256099942544/8691691433",
+                                "ca-app-pub-3940256099942544/1033173712",
                                 appOpenCallBack, interCallBack);
+                        AdmobManager.getInstance()
+                                .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
+                        AdmobManager.getInstance()
+                                .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
                     }
                 });
 
 
-        AdmobManager.getInstance()
-                .loadNative(this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
-        AdmobManager.getInstance()
-                .loadBanner(this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
+
 
         AdmobManager.getInstance()
                 .loadBanner(this, "ca-app-pub-3940256099942544/9214589741", frameLayout3, getLifecycle(), true);
@@ -121,29 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void loadNative() {
-        AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
-                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
-                    @Override
-                    public void onNativeAdLoaded(NativeAd nativeAd) {
-                        // Show the ad.
-                        Log.e("zzzzzzzzzzzz", "onNativeAdLoaded: main");
-                    }
-                })
-                .withAdListener(new AdListener() {
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError adError) {
-                        // Handle the failure by logging, altering the UI, and so on.
-                    }
-                })
-                .withNativeAdOptions(new NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .build())
-                .build();
-        adLoader.loadAd(new AdRequest.Builder().build());
 
-    }
 
     @Override
     protected void onResume() {
