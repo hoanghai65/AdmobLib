@@ -1,4 +1,4 @@
-package com.haihd1.abmoblibrary.admob_builder;
+package com.haihd1.abmoblibrary.utils.callback;
 
 public interface AdmobCallBack {
     // Code to be executed when the user clicks on an ad.

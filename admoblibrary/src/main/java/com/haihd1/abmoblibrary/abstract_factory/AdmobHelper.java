@@ -3,8 +3,8 @@ package com.haihd1.abmoblibrary.abstract_factory;
 import android.app.Activity;
 import android.view.ViewGroup;
 
-import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 
 import java.util.List;
 

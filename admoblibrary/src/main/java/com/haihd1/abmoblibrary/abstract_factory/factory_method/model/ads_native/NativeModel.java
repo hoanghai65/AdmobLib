@@ -14,13 +14,12 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MediaAspectRatio;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.VideoOptions;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
-import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 

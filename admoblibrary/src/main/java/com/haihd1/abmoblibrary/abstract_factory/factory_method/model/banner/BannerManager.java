@@ -10,7 +10,7 @@ import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.AdmobCreator;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.AdmobFactory;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 
 
 public class BannerManager {

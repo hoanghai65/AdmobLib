@@ -13,6 +13,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.ump.FormError;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native.NativeManager;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_reward.RewardManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.BannerManager;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.COLLAPSE_BANNER_POSITION;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
@@ -20,7 +21,10 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.observer.Observer;
 import com.haihd1.abmoblibrary.observer.Subject;
+import com.haihd1.abmoblibrary.utils.TimeShowInter;
 import com.haihd1.abmoblibrary.utils.ShowAdsSplashHelper;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -101,6 +105,7 @@ public class AdmobManager extends Observer {
     }
 
     public void initUmp(Activity activity, boolean reset, UMPResultListener umpResultListener) {
+        TimeShowInter.upDateTimeForStartFromInterval();
         googleMobileAdsConsentManager =
                 GoogleMobileAdsConsentManager.getInstance(activity);
         googleMobileAdsConsentManager.gatherConsent(activity, reset, new GoogleMobileAdsConsentManager.OnConsentGatheringCompleteListener() {
@@ -166,7 +171,6 @@ public class AdmobManager extends Observer {
         }
     }
 
-    ///-----------------------------------------
     /// banner ads
     public void loadBanner(Activity activity, String id, ViewGroup frameLayout) {
         BannerManager.getInstance().loadBanner(activity, id, frameLayout);
@@ -224,9 +228,13 @@ public class AdmobManager extends Observer {
 
     //----------------------
     // Inter ads
-
     public InterstitialManager createInter() {
         return new InterstitialManager();
+    }
+
+    // Reward ads
+    public RewardManager createReward() {
+        return new RewardManager();
     }
 
 

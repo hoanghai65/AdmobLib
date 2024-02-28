@@ -7,10 +7,8 @@ import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.AdmobCreator;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.AdmobFactory;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdModel;
-import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.observer.Subject;
 
 public class InterstitialManager {

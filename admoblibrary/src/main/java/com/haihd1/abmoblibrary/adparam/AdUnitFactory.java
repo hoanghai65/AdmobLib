@@ -27,6 +27,7 @@ public abstract class AdUnitFactory {
     public abstract String getAdmobBannerId();
 
     public abstract String getAdmobRewardedId();
+    public abstract String getAdmobRewardInterstitial();
     public abstract int getIntervalBetweenInterstitial();
     public abstract int getInterstitialFromStart();
     public abstract String getRateAoaInterSplash();

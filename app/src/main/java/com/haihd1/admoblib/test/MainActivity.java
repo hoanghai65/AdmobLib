@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void umpResultListener() {
                         AdmobManager.getInstance().adsSplash(MainActivity.this,
-                                "ca-app-pub-3940256099942544/9257395921",
+                                    "ca-app-pub-3940256099942544/9257395921",
                                 "ca-app-pub-3940256099942544/1033173712",
                                 appOpenCallBack, interCallBack);
                         AdmobManager.getInstance()

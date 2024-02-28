@@ -32,6 +32,11 @@ public class AdsParamUtils extends AdUnitFactory {
     }
 
     @Override
+    public String getAdmobRewardInterstitial() {
+        return AppConfigs.getString(RemoteKey.ADMOB_REWARDED_INTERSTITIAL);
+    }
+
+    @Override
     public int getIntervalBetweenInterstitial() {
     return AppConfigs.getInt(RemoteKey.INTERVAL_BETWEEN_INTERSTITIAL);
     }

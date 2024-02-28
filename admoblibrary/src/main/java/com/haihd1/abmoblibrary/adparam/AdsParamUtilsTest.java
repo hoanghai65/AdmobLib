@@ -33,6 +33,12 @@ public class AdsParamUtilsTest extends AdUnitFactory {
     }
 
     @Override
+    public String getAdmobRewardInterstitial() {
+        return "ca-app-pub-3940256099942544/5354046379";
+    }
+
+
+    @Override
     public int getIntervalBetweenInterstitial() {
         return 20;
     }

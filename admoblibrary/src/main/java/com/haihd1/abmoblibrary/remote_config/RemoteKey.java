@@ -18,6 +18,7 @@ public class RemoteKey {
     public static final String ADMOB_OPEN_ID = "admob_open_id";
     public static final String ADMOB_BANNER_ID = "admob_banner_id";
     public static final String ADMOB_REWARDED_ID = "admob_rewarded_id";
+    public static final String ADMOB_REWARDED_INTERSTITIAL= "admob_rewarded_interstitial";
     public static final String INTERVAL_BETWEEN_INTERSTITIAL = "interval_between_interstitial";
     public static final String INTERSTITIAL_FROM_START = "interstitial_from_start";
     public static final String RATE_AOA_INTER_SPLASH = "rate_aoa_inter_splash";

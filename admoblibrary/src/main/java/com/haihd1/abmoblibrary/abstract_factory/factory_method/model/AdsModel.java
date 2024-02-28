@@ -3,8 +3,8 @@ package com.haihd1.abmoblibrary.abstract_factory.factory_method.model;
 import android.app.Activity;
 
 
-import com.haihd1.abmoblibrary.admob_builder.ActionCallBack;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

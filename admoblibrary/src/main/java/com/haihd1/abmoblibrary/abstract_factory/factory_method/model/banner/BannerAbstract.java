@@ -75,19 +75,6 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth);
     }
 
-    protected void initializeMobileAdsSdk(Activity activity) {
-        // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(
-                activity,
-                new OnInitializationCompleteListener() {
-                    @Override
-                    public void onInitializationComplete(InitializationStatus initializationStatus) {
-//                        loadBanner(activity);
-                        AdmobManager.getInstance().setIsMobileAdsInitializeCalled();
-                    }
-                });
-
-    }
 
     protected void replaceView() {
         if (adContainerView != null && adView != null) {

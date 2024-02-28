@@ -22,17 +22,4 @@ public abstract class InterstitialAbstract extends AdsModel implements AdmobHelp
     protected abstract void setActivity(Activity activity);
     protected LoadingAdsDialog adsDialog;
 
-    protected void initializeMobileAdsSdk(Activity activity) {
-        // Initialize the Mobile Ads SDK.
-        MobileAds.initialize(
-                activity,
-                new OnInitializationCompleteListener() {
-                    @Override
-                    public void onInitializationComplete(InitializationStatus initializationStatus) {
-//                        loadBanner(activity);
-                        AdmobManager.getInstance().setIsMobileAdsInitializeCalled();
-                    }
-                });
-
-    }
 }

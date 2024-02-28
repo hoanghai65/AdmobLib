@@ -35,7 +35,7 @@
 -keep class com.haihd1.abmoblibrary.abstract_factory.AdmobHelper {*;}
 -keep class com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE {*;}
 -keep class com.haihd1.abmoblibrary.abstract_factory.factory_method.model.AdsModel {*;}
--keep class com.haihd1.abmoblibrary.admob_builder.AdmobCallBack {*;}
+-keep class com.haihd1.abmoblibrary.utils.callback.AdmobCallBack {*;}
 -keep class com.haihd1.abmoblibrary.admob_builder.AdmobManager {*;}
 -keep class com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager {*;}
 -keep class com.github.ybq.**{*;}

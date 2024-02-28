@@ -46,6 +46,10 @@ public class AdUnit {
         String id = AdUnitFactory.getInstance(TEST).getAdmobRewardedId();
         return id == null ? "" : id;
     }
+    public static String getAdmobRewardInterstitialId() {
+        String id = AdUnitFactory.getInstance(TEST).getAdmobRewardInterstitial();
+        return id == null ? "" : id;
+    }
 
     public static String getAdxInterId() {
         String id = AdUnitFactory.getInstance(TEST).getAdxInterId();
