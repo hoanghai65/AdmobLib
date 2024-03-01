@@ -9,11 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
+import com.haihd1.abmoblibrary.adparam.AdUnit;
+import com.haihd1.abmoblibrary.remote_config.AppConfigs;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.InterstitialManager;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
+import com.haihd1.abmoblibrary.utils.callback.RemoteConfigCallback;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 import com.haihd1.admoblib.R;
 
@@ -53,19 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
         AdmobManager.getInstance().initUmp(MainActivity.this,
                 !GoogleMobileAdsConsentManager.getInstance(this).getConsentResult(this),
-                new UMPResultListener() {
-                    @Override
-                    public void umpResultListener() {
-                        AdmobManager.getInstance().adsSplash(MainActivity.this,
-                                    "ca-app-pub-3940256099942544/9257395921",
-                                "ca-app-pub-3940256099942544/1033173712",
-                                appOpenCallBack, interCallBack);
-                        AdmobManager.getInstance()
-                                .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
-                        AdmobManager.getInstance()
-                                .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
-                    }
-                });
+                () -> AppConfigs.getInstance(getApplication(), R.xml.remote_ads, () -> {
+                    Log.e("ConfigTest", "onRemoteListener: " + AppConfigs.getBoolean("open_splash") );
+                    AdmobManager.getInstance().adsSplash(MainActivity.this,
+                            "ca-app-pub-3940256099942544/9257395921",
+                            "ca-app-pub-3940256099942544/1033173712",
+                            appOpenCallBack, interCallBack);
+                    AdmobManager.getInstance()
+                            .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
+                    AdmobManager.getInstance()
+                            .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
+                }));
 
 
 
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        AppOpenAdManager.getInstance().disableAppOpenResumeActivity(this);
+        AppOpenAdManager.getInstance().disableAppOpenResumeActivity(this);
         Log.e("aaaaaaaaaaaaa", "onActivityResumed: 111");
     }
 }

@@ -3,6 +3,7 @@ plugins {
 //    id("com.android.application")
     id("maven-publish")
     id("org.jetbrains.kotlin.android")
+
 }
 
 android {
@@ -50,6 +51,7 @@ dependencies {
 
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-config:21.6.1")
     implementation ("com.google.firebase:firebase-crashlytics")

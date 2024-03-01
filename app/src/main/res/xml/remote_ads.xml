@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>open_splash</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>rate_aoa_inter_splash</key>
+        <value>30_70</value>
+    </entry>
+</defaultsMap>

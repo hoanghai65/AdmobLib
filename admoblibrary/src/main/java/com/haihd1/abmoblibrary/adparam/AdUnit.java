@@ -1,5 +1,10 @@
 package com.haihd1.abmoblibrary.adparam;
 
+import android.util.Log;
+
+import com.haihd1.abmoblibrary.remote_config.AppConfigs;
+import com.haihd1.abmoblibrary.remote_config.RemoteKey;
+
 public class AdUnit {
     public static final boolean TEST = true;
 
@@ -28,18 +33,18 @@ public class AdUnit {
     }
 
     public static int getIntervalBetweenInterstitial() {
-        int id = AdUnitFactory.getInstance(false).getIntervalBetweenInterstitial();
+        int id = AppConfigs.getInt(RemoteKey.INTERVAL_BETWEEN_INTERSTITIAL);
         return id == 0 ? 20 : id;
     }
 
     public static int getInterstitialFromStart() {
-        int id = AdUnitFactory.getInstance(false).getInterstitialFromStart();
+        int id =  AppConfigs.getInt(RemoteKey.INTERSTITIAL_FROM_START);
         return id == 0 ? 15 : id;
     }
 
     public static String getRateAoaInterSplash() {
-        String id = AdUnitFactory.getInstance(false).getRateAoaInterSplash();
-        return id == null ? "30_70" : id;
+        String id =  AppConfigs.getString(RemoteKey.RATE_AOA_INTER_SPLASH);
+        return id.isEmpty() ? "30_70" : id;
     }
 
     public static String getAdmobRewardedId() {

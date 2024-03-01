@@ -3,6 +3,8 @@ plugins {
 //    id("com.android.library")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+    id ("com.google.firebase.crashlytics")
 }
 
 android {
@@ -48,5 +50,7 @@ dependencies {
 //    implementation("com.facebook.shimmer:shimmer:0.5.0")
 //    implementation("com.github.ybq:Android-SpinKit:1.4.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+
+
 }
 

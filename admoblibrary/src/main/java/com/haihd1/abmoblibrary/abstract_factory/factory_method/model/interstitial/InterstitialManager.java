@@ -62,8 +62,7 @@ public class InterstitialManager {
         try {
             if (mInterAds != null) {
                 mInterAds.initId(id);
-                mInterAds.isNotInterSplash = false;
-                mInterAds.loadAdmob(activity);
+                mInterAds.loadInterSplash(activity);
                 Log.e("zzzzzzzzzzzz", "loadInter: init");
             }
         } catch (Exception exception) {
@@ -104,6 +103,13 @@ public class InterstitialManager {
         if (mInterAds != null) {
             mInterAds.setActionCallBack(actionCallBack);
             mInterAds.showInter(activity);
+        }
+    }
+
+    public void showInterSplash(Activity activity, ActionCallBack actionCallBack) {
+        if (mInterAds != null) {
+            mInterAds.setActionCallBack(actionCallBack);
+            mInterAds.showInterSplash(activity);
         }
     }
 

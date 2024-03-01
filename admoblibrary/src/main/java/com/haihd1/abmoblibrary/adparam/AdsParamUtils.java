@@ -1,6 +1,8 @@
 package com.haihd1.abmoblibrary.adparam;
 
 
+import android.util.Log;
+
 import com.haihd1.abmoblibrary.remote_config.AppConfigs;
 import com.haihd1.abmoblibrary.remote_config.RemoteKey;
 
@@ -38,6 +40,7 @@ public class AdsParamUtils extends AdUnitFactory {
 
     @Override
     public int getIntervalBetweenInterstitial() {
+        Log.e("AppConfigs", "getIntervalBetweenInterstitial: Fuckkk 9"  );
     return AppConfigs.getInt(RemoteKey.INTERVAL_BETWEEN_INTERSTITIAL);
     }
 

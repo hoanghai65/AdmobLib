@@ -21,10 +21,14 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.observer.Observer;
 import com.haihd1.abmoblibrary.observer.Subject;
+import com.haihd1.abmoblibrary.observer.SubjectRemote;
+import com.haihd1.abmoblibrary.remote_config.AppConfigs;
+import com.haihd1.abmoblibrary.remote_config.RemoteKey;
 import com.haihd1.abmoblibrary.utils.TimeShowInter;
 import com.haihd1.abmoblibrary.utils.ShowAdsSplashHelper;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.RemoteConfigCallback;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -47,7 +51,7 @@ public class AdmobManager extends Observer {
     public void onListenerLoadedAds(Activity activity, ActionCallBack actionCallBack, TYPE type) {
         if (activity != null && actionCallBack != null) {
             if (type == TYPE.INTER){
-                InterstitialManager.getInstance().showInter(activity, new ActionCallBack() {
+                InterstitialManager.getInstance().showInterSplash(activity, new ActionCallBack() {
                     @Override
                     public void onNextAction() {
                         removeObserver();
@@ -104,6 +108,7 @@ public class AdmobManager extends Observer {
                 });
     }
 
+
     public void initUmp(Activity activity, boolean reset, UMPResultListener umpResultListener) {
         TimeShowInter.upDateTimeForStartFromInterval();
         googleMobileAdsConsentManager =
@@ -138,9 +143,11 @@ public class AdmobManager extends Observer {
     public void adsSplash(Activity activity, String idAppOpenSplash, String idInterSplash, ActionCallBack appOpenCallBack, ActionCallBack interCallBack) {
         if (TYPE.APP_OPEN ==  ShowAdsSplashHelper.adsTypeSplash()) {
             obServerAppOpen(activity, appOpenCallBack);
+            Log.e("Rate_Show", "adsSplash: open" );
             AppOpenAdManager.getInstance().loadAppOpenSplash(activity, idAppOpenSplash);
         }else {
             obServerInter(activity, interCallBack);
+            Log.e("Rate_Show", "adsSplash: inter" );
             InterstitialManager.getInstance().loadInterSplash(activity, idInterSplash);
         }
     }
@@ -163,6 +170,7 @@ public class AdmobManager extends Observer {
         this.subject = subject;
         this.subject.attach(this);
     }
+
 
     private void removeObserver() {
         if (this.subject != null) {

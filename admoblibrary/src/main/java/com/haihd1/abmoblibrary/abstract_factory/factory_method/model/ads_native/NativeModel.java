@@ -143,8 +143,6 @@ public class NativeModel extends NativeAbstract {
                         nativeAdview = (NativeAdView) activity.getLayoutInflater().inflate(mResource, adContainerView, false);
                         populateNativeAdView(nativeAd, nativeAdview);
                         replaceView();
-//                        adContainerView.removeAllViews();
-//                        adContainerView.addView(nativeAdview);
                         Log.e("nnnnnnnnnnn", "onNativeAdLoaded: 3   " + activity.hashCode() + "   " + AD_UNIT_ID);
 
                     }

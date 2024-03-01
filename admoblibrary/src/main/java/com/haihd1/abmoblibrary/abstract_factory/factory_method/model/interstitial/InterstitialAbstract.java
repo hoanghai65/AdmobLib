@@ -2,6 +2,7 @@ package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstiti
 
 import android.app.Activity;
 
+import com.google.android.gms.ads.AdActivity;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -17,7 +18,9 @@ public abstract class InterstitialAbstract extends AdsModel implements AdmobHelp
     protected boolean adIsLoading;
     protected boolean isNotInterSplash = true;
 
+    public abstract void loadInterSplash(Activity activity);
     public abstract void showInter(Activity activity);
+    public abstract void showInterSplash(Activity activity);
     protected abstract void setSubject(Subject subject);
     protected abstract void setActivity(Activity activity);
     protected LoadingAdsDialog adsDialog;

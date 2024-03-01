@@ -49,8 +49,8 @@ public class InterstitialModel extends InterstitialAbstract {
     @Override
     public void loadAdmob(Activity activity) {
         if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            isNotInterSplash = true;
             AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-
             Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
             if (adIsLoading) {
                 Log.e("iiiiiiiiiiiiiiii", "sddddd");
@@ -79,7 +79,51 @@ public class InterstitialModel extends InterstitialAbstract {
                     super.onAdLoaded(interstitialAd);
                     adIsLoading = false;
                     mInterstitialAd = interstitialAd;
-                    if (mSubject != null && !isNotInterSplash) {
+                    Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
+                    mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdLoaded();
+                    }
+                }
+            });
+        }
+    }
+
+
+    @Override
+    public void loadInterSplash(Activity activity) {
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            isNotInterSplash = false;
+            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+            Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
+            if (adIsLoading) {
+                Log.e("iiiiiiiiiiiiiiii", "sddddd");
+                return;
+            }
+            adIsLoading = true;
+            AdRequest adRequest = new AdRequest.Builder().build();
+            InterstitialAd.load(activity, AD_UNIT_ID, adRequest, new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adIsLoading = false;
+                    mInterstitialAd = null;
+                    Log.e("iiiiiiiiiiiiiiii", " onAdFailedToLoad");
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdFailedToLoad();
+                    }
+                    if (actionCallBack != null) {
+                        actionCallBack.onNextAction();
+                    }
+
+                }
+
+                @Override
+                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                    super.onAdLoaded(interstitialAd);
+                    adIsLoading = false;
+                    mInterstitialAd = interstitialAd;
+                    if (mSubject != null) {
                         mSubject.setState(activity, actionCallBack, TYPE.INTER);
                     }
                     Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
@@ -122,7 +166,9 @@ public class InterstitialModel extends InterstitialAbstract {
                     adsDialog.dismiss();
                     adsDialog = null;
                 }
-                TimeShowInter.upDateTimeForBetweenInterval();
+                if (isNotInterSplash) {
+                    TimeShowInter.upDateTimeForBetweenInterval();
+                }
 
                 if (admobCallBack != null) {
                     admobCallBack.onAdClosed();
@@ -166,30 +212,55 @@ public class InterstitialModel extends InterstitialAbstract {
         this.actionCallBack = actionCallBack;
     }
 
+
     @Override
     public void showInter(Activity activity) {
-        if (mInterstitialAd != null && isNotInterSplash && TimeShowInter.showInterThenTimeStart() && TimeShowInter.showInterThenTimeBetween()) {
-            Log.e("iiiiiiiiiiiiiiii", " showInter" + "   " + adIsLoading);
-            if (adsDialog == null) {
-                adsDialog = new LoadingAdsDialog(activity);
-            }
-            if (!adIsLoading) {
-                adsDialog.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mInterstitialAd.show(activity);
-
-                    }
-                }, 1000L);
-            }
-
-        } else {
+        if (mInterstitialAd == null) {
             Log.e("iiiiiiiiiiiiiiii", " none showInter");
             loadAdmob(activity);
             if (actionCallBack != null) {
                 actionCallBack.onNextAction();
             }
+        } else {
+            Log.e("TIME_INTER_VAL", "showInter: " + TimeShowInter.isShowedInterSplash + "  " + TimeShowInter.showInterThenTimeStart() + "  "  + TimeShowInter.showInterThenTimeBetween());
+            if ((!TimeShowInter.isShowedInterSplash && TimeShowInter.showInterThenTimeStart()) || (TimeShowInter.isShowedInterSplash && TimeShowInter.showInterThenTimeBetween())) {
+                Log.e("iiiiiiiiiiiiiiii", " showInter" + "   " + adIsLoading);
+                handlerShowInter(activity);
+            } else {
+                Log.e("iiiiiiiiiiiiiiii", " none showInter");
+                if (actionCallBack != null) {
+                    actionCallBack.onNextAction();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void showInterSplash(Activity activity) {
+        if (mInterstitialAd != null) {
+            handlerShowInter(activity);
+        } else {
+            Log.e("iiiiiiiiiiiiiiii", " none showInter");
+            loadInterSplash(activity);
+            if (actionCallBack != null) {
+                actionCallBack.onNextAction();
+            }
+        }
+    }
+
+    private void handlerShowInter(Activity activity) {
+        if (adsDialog == null) {
+            adsDialog = new LoadingAdsDialog(activity);
+        }
+        if (!adIsLoading) {
+            adsDialog.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mInterstitialAd.show(activity);
+
+                }
+            }, 1000L);
         }
     }
 
