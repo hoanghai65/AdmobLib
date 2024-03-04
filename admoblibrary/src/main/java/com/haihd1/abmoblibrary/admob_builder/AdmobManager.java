@@ -21,21 +21,16 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.observer.Observer;
 import com.haihd1.abmoblibrary.observer.Subject;
-import com.haihd1.abmoblibrary.observer.SubjectRemote;
-import com.haihd1.abmoblibrary.remote_config.AppConfigs;
-import com.haihd1.abmoblibrary.remote_config.RemoteKey;
 import com.haihd1.abmoblibrary.utils.TimeShowInter;
 import com.haihd1.abmoblibrary.utils.ShowAdsSplashHelper;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
-import com.haihd1.abmoblibrary.utils.callback.RemoteConfigCallback;
 import com.haihd1.abmoblibrary.utils.callback.UMPResultListener;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdmobManager extends Observer {
 //    private AdmobHelper admob;
-
     private static AdmobManager INSTANCE;
     public static String id_test_banner = "ca-app-pub-3940256099942544/6300978111";
     public static String id_test_banner_2 = "ca-app-pub-3940256099942544/9214589741";

@@ -8,6 +8,17 @@ import com.haihd1.abmoblibrary.remote_config.RemoteKey;
 public class AdUnit {
     public static final boolean TEST = true;
 
+    public static void setTimeInterBetween(int timeInterBetween) {
+        AdUnit.timeInterBetween = timeInterBetween;
+    }
+
+    public static void setTimeFromStart(int timeFromStart) {
+        AdUnit.timeFromStart = timeFromStart;
+    }
+
+    public static int timeInterBetween = 20;
+    public static int timeFromStart = 15;
+
     public static boolean isTEST() {
         return TEST;
     }
@@ -34,12 +45,12 @@ public class AdUnit {
 
     public static int getIntervalBetweenInterstitial() {
         int id = AppConfigs.getInt(RemoteKey.INTERVAL_BETWEEN_INTERSTITIAL);
-        return id == 0 ? 20 : id;
+        return id == 0 ? timeInterBetween : id;
     }
 
     public static int getInterstitialFromStart() {
         int id =  AppConfigs.getInt(RemoteKey.INTERSTITIAL_FROM_START);
-        return id == 0 ? 15 : id;
+        return id == 0 ? timeFromStart : id;
     }
 
     public static String getRateAoaInterSplash() {

@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         AdmobManager.getInstance().initUmp(MainActivity.this,
                 !GoogleMobileAdsConsentManager.getInstance(this).getConsentResult(this),
-                () -> AppConfigs.getInstance(getApplication(), R.xml.remote_ads, () -> {
+                () ->
+                        AppConfigs.getInstance(getApplication(), R.xml.remote_ads, () -> {
                     Log.e("ConfigTest", "onRemoteListener: " + AppConfigs.getBoolean("open_splash") );
                     AdmobManager.getInstance().adsSplash(MainActivity.this,
                             "ca-app-pub-3940256099942544/9257395921",
@@ -67,7 +68,22 @@ public class MainActivity extends AppCompatActivity {
                             .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
                     AdmobManager.getInstance()
                             .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
-                }));
+                }
+//        {
+//            AdUnit.setTimeInterBetween(40);
+//            AdUnit.setTimeFromStart(0);
+//            AdmobManager.getInstance().adsSplash(MainActivity.this,
+//                    "ca-app-pub-3940256099942544/9257395921",
+//                    "ca-app-pub-3940256099942544/1033173712",
+//                    appOpenCallBack, interCallBack);
+//            AdmobManager.getInstance()
+//                    .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
+//            AdmobManager.getInstance()
+//                    .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
+//
+//
+//        }
+                        ));
 
 
 

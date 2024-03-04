@@ -8,4 +8,14 @@
         <key>rate_aoa_inter_splash</key>
         <value>30_70</value>
     </entry>
+
+    <entry>
+        <key>interval_between_interstitial</key>
+        <value>40</value>
+    </entry>
+
+    <entry>
+        <key>interstitial_from_start</key>
+        <value>0</value>
+    </entry>
 </defaultsMap>
