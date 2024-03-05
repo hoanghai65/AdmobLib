@@ -71,7 +71,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.hoanghai65"
             artifactId = "AdmobLib"
-            version = "1.0.8"
+            version = "1.0.9"
             pom {
                 description.set("First release")
             }
