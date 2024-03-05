@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -71,7 +71,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.hoanghai65"
             artifactId = "AdmobLib"
-            version = "1.0.9"
+            version = "1.1.0"
             pom {
                 description.set("First release")
             }
