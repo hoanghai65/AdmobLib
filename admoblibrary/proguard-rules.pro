@@ -48,6 +48,7 @@
 -keep class com.haihd1.abmoblibrary.remote_config.**{*;}
 -keep class com.haihd1.abmoblibrary.utils.**{*;}
 -keep class com.haihd1.abmoblibrary.observer.**{*;}
+-keep class com.haihd1.abmoblibrary.adparam.**{*;}
 -keep class com.google.android.gms.**{*;}
 -keep class com.google.android.ump.**{*;}
 
