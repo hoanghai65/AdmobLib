@@ -17,7 +17,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -31,8 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 
 }
@@ -50,7 +53,7 @@ dependencies {
 //    implementation("com.facebook.shimmer:shimmer:0.5.0")
 //    implementation("com.github.ybq:Android-SpinKit:1.4.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-
+    implementation("androidx.multidex:multidex:2.0.1")
 
 }
 

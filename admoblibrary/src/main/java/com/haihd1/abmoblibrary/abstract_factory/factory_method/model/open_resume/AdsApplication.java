@@ -10,10 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
+import androidx.multidex.MultiDexApplication;
 
 import com.google.android.gms.ads.AdActivity;
 
-public abstract class AdsApplication extends Application implements Application.ActivityLifecycleCallbacks, DefaultLifecycleObserver {
+public abstract class AdsApplication extends MultiDexApplication implements Application.ActivityLifecycleCallbacks, DefaultLifecycleObserver {
     private Activity currentActivity;
     private AppOpenAbstract appOpenAdManager;
     private boolean conditionShowAds = false;
