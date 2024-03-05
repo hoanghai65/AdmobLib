@@ -22,6 +22,8 @@ import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.AdsModel;
 import com.haihd1.abmoblibrary.utils.CheckNetWork;
 
+import java.util.Objects;
+
 public abstract class NativeAbstract extends AdsModel implements AdmobHelper, LifecycleEventObserver {
     protected NativeAdView nativeAdview;
     protected NativeAd mNativeAd;
@@ -118,7 +120,7 @@ public abstract class NativeAbstract extends AdsModel implements AdmobHelper, Li
 
         // Get the video controller for the ad. One will always be provided,
         // even if the ad doesn't have a video asset.
-        VideoController videoController = nativeAd.getMediaContent().getVideoController();
+        VideoController videoController = Objects.requireNonNull(nativeAd.getMediaContent()).getVideoController();
 
         // Updates the UI to say whether or not this ad has a video asset.
         if (videoController.hasVideoContent()) {

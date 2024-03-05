@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".abstract_factory.factory_method.model.open_resume.AdsApplication"
+        android:name=".test.MyApplication"
         android:theme="@style/Theme.AdmobLib"
         tools:targetApi="31">
         <activity

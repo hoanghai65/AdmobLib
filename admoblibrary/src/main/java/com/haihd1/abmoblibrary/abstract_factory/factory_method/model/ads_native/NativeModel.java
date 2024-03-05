@@ -14,14 +14,14 @@ import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MediaAspectRatio;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.VideoOptions;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 
 import java.util.List;
 
@@ -68,23 +68,27 @@ public class NativeModel extends NativeAbstract {
     @Override
     public void loadAdmob(Activity activity) {
         mActivity = activity;
-        initView(activity);
-        Log.e("initializeMobileAdsSdk", "initializeMobileAdsSdk: " + AdmobManager.getInstance().getIsMobileAdsInitializeCalled().get());
-        AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-        if (adContainerView != null) {
-            Log.e("zzzzzzzzzzzzz", "reloadAdmob:ttt " + adContainerView);
-            adContainerView.getViewTreeObserver()
-                    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            Log.e("zzzzzzzzzzzz", "ccccccccccccccccccc: loadNative");
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            initView(activity);
+            Log.e("initializeMobileAdsSdk", "initializeMobileAdsSdk: " + AdmobManager.getInstance().getIsMobileAdsInitializeCalled().get());
+            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+            if (adContainerView != null) {
+                Log.e("zzzzzzzzzzzzz", "reloadAdmob:ttt " + adContainerView);
+                adContainerView.getViewTreeObserver()
+                        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                Log.e("zzzzzzzzzzzz", "ccccccccccccccccccc: loadNative");
 
-                            if (!initialLayoutComplete.getAndSet(true)) {
-                                loadNative(activity);
-                                Log.e("zzzzzzzzzzzz", "loadAdmob: loadNative");
+                                if (!initialLayoutComplete.getAndSet(true)) {
+                                    loadNative(activity);
+                                    Log.e("zzzzzzzzzzzz", "loadAdmob: loadNative");
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+        }else {
+            adContainerView.removeAllViews();
         }
     }
 
@@ -117,7 +121,6 @@ public class NativeModel extends NativeAbstract {
     @Override
     void loadNative(Activity activity) {
         Log.e("zzzzzzzzzzzzz", "loadNative: ");
-        MobileAds.initialize(activity);
         AdLoader.Builder builder = new AdLoader.Builder(activity, AD_UNIT_ID);
         VideoOptions videoOptions =
                 new VideoOptions.Builder().setStartMuted(false).setCustomControlsRequested(true).build();
@@ -140,8 +143,6 @@ public class NativeModel extends NativeAbstract {
                         nativeAdview = (NativeAdView) activity.getLayoutInflater().inflate(mResource, adContainerView, false);
                         populateNativeAdView(nativeAd, nativeAdview);
                         replaceView();
-//                        adContainerView.removeAllViews();
-//                        adContainerView.addView(nativeAdview);
                         Log.e("nnnnnnnnnnn", "onNativeAdLoaded: 3   " + activity.hashCode() + "   " + AD_UNIT_ID);
 
                     }

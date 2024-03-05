@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "669845844915",
+    "project_id": "admoblib",
+    "storage_bucket": "admoblib.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669845844915:android:a8e6a6c02870d6f7e151c6",
+        "android_client_info": {
+          "package_name": "com.haihd1.admoblib"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYKd2DmmcTpy593H827LRQcbEXX8QGsJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,7 @@ plugins {
 //    id("com.android.application")
     id("maven-publish")
     id("org.jetbrains.kotlin.android")
+
 }
 
 android {
@@ -14,6 +15,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        multiDexEnabled = true
     }
 
     buildTypes {
@@ -26,18 +28,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
     lint {
         baseline = file("lint-baseline.xml")
     }
 }
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)        // << --- ADD This
-    }
-}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17            // << --- ADD This
     targetCompatibility = JavaVersion.VERSION_17
@@ -52,11 +53,19 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-core:21.1.1")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-config:21.6.1")
+    implementation ("com.google.firebase:firebase-crashlytics")
+
     implementation("com.google.android.gms:play-services-ads:22.6.0")
     implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.github.ybq:Android-SpinKit:1.4.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.multidex:multidex:2.0.1")
 }
 
 publishing {

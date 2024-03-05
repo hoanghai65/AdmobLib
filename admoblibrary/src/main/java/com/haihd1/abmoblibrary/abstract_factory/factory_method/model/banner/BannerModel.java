@@ -12,9 +12,10 @@ import androidx.lifecycle.LifecycleOwner;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
-import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.ActionCallBack;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
 
 import java.util.List;
 
@@ -74,19 +75,23 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
     @Override
     public void loadAdmob(Activity activity) {
         mActivity = activity;
-        AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-        initView(activity);
-        if (adContainerView != null) {
-            adContainerView.getViewTreeObserver()
-                    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                        @Override
-                        public void onGlobalLayout() {
-                            if (!initialLayoutComplete.getAndSet(true)) {
-                                loadBanner(activity);
-                                Log.e("ttttttttttttttt", "loadBanner: loabBanner");
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+            initView(activity);
+            if (adContainerView != null) {
+                adContainerView.getViewTreeObserver()
+                        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                if (!initialLayoutComplete.getAndSet(true)) {
+                                    loadBanner(activity);
+                                    Log.e("ttttttttttttttt", "loadBanner: loabBanner");
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+        }else {
+            adContainerView.removeAllViews();
         }
 
     }

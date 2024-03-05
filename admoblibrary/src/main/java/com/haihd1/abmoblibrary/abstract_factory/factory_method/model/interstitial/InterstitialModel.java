@@ -13,14 +13,22 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.haihd1.abmoblibrary.admob_builder.AdmobCallBack;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
+import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
+import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
+import com.haihd1.abmoblibrary.observer.Subject;
+import com.haihd1.abmoblibrary.utils.TimeShowInter;
 
 import java.util.List;
 
 public class InterstitialModel extends InterstitialAbstract {
     private String AD_UNIT_ID;
     private List<String> AD_LIST_ID;
+    private Subject mSubject;
+    private Activity mActivity;
+
 
     @Override
     public void initId(String id) {
@@ -37,40 +45,95 @@ public class InterstitialModel extends InterstitialAbstract {
 
     }
 
+
     @Override
     public void loadAdmob(Activity activity) {
-        AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-        Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
-        if (adIsLoading) {
-            Log.e("iiiiiiiiiiiiiiii", "sddddd");
-            return;
-        }
-        adIsLoading = true;
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(activity, AD_UNIT_ID, adRequest, new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adIsLoading = false;
-                mInterstitialAd = null;
-                Log.e("iiiiiiiiiiiiiiii", " onAdFailedToLoad");
-                if (admobCallBack != null) {
-                    admobCallBack.onAdFailedToLoad();
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            isNotInterSplash = true;
+            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+            Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
+            if (adIsLoading) {
+                Log.e("iiiiiiiiiiiiiiii", "sddddd");
+                return;
+            }
+            adIsLoading = true;
+            AdRequest adRequest = new AdRequest.Builder().build();
+            InterstitialAd.load(activity, AD_UNIT_ID, adRequest, new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adIsLoading = false;
+                    mInterstitialAd = null;
+                    Log.e("iiiiiiiiiiiiiiii", " onAdFailedToLoad");
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdFailedToLoad();
+                    }
+                    if (actionCallBack != null) {
+                        actionCallBack.onNextAction();
+                    }
+
                 }
-                actionCallBack.onNextAction();
 
-            }
+                @Override
+                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                    super.onAdLoaded(interstitialAd);
+                    adIsLoading = false;
+                    mInterstitialAd = interstitialAd;
+                    Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
+                    mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdLoaded();
+                    }
+                }
+            });
+        }
+    }
 
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                super.onAdLoaded(interstitialAd);
-                adIsLoading = false;
-                mInterstitialAd = interstitialAd;
-                Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
-                mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
-                admobCallBack.onAdLoaded();
+
+    @Override
+    public void loadInterSplash(Activity activity) {
+        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
+            isNotInterSplash = false;
+            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+            Log.e("iiiiiiiiiiiiiiii", " loadAdmob init" + "   " + adIsLoading);
+            if (adIsLoading) {
+                Log.e("iiiiiiiiiiiiiiii", "sddddd");
+                return;
             }
-        });
+            adIsLoading = true;
+            AdRequest adRequest = new AdRequest.Builder().build();
+            InterstitialAd.load(activity, AD_UNIT_ID, adRequest, new InterstitialAdLoadCallback() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adIsLoading = false;
+                    mInterstitialAd = null;
+                    Log.e("iiiiiiiiiiiiiiii", " onAdFailedToLoad");
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdFailedToLoad();
+                    }
+                    if (actionCallBack != null) {
+                        actionCallBack.onNextAction();
+                    }
+
+                }
+
+                @Override
+                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                    super.onAdLoaded(interstitialAd);
+                    adIsLoading = false;
+                    mInterstitialAd = interstitialAd;
+                    if (mSubject != null) {
+                        mSubject.setState(activity, actionCallBack, TYPE.INTER);
+                    }
+                    Log.e("iiiiiiiiiiiiiiii", " onAdLoaded" + "   " + mInterstitialAd);
+                    mInterstitialAd.setFullScreenContentCallback(getfullScreenContentCallback(activity));
+                    if (admobCallBack != null) {
+                        admobCallBack.onAdLoaded();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -103,8 +166,13 @@ public class InterstitialModel extends InterstitialAbstract {
                     adsDialog.dismiss();
                     adsDialog = null;
                 }
-                Log.e("iiiiiiiiiiiiiiii", " onAdDismissedFullScreenContent" + actionCallBack);
-                admobCallBack.onAdClosed();
+                if (isNotInterSplash) {
+                    TimeShowInter.upDateTimeForBetweenInterval();
+                }
+
+                if (admobCallBack != null) {
+                    admobCallBack.onAdClosed();
+                }
             }
 
             @Override
@@ -115,19 +183,25 @@ public class InterstitialModel extends InterstitialAbstract {
                     adsDialog.dismiss();
                     adsDialog = null;
                 }
-                actionCallBack.onNextAction();
+                if (actionCallBack != null) {
+                    actionCallBack.onNextAction();
+                }
                 Log.e("iiiiiiiiiiiiiiii", "onAdFailedToShowFullScreenContent: ");
             }
 
             @Override
             public void onAdImpression() {
                 super.onAdImpression();
-                admobCallBack.onAdImpression();
+                if (admobCallBack != null) {
+                    admobCallBack.onAdImpression();
+                }
             }
 
             @Override
             public void onAdShowedFullScreenContent() {
-                loadAdmob(activity);
+                if (isNotInterSplash) {
+                    loadAdmob(activity);
+                }
                 Log.e("iiiiiiiiiiiiiiii", "onAdShowedFullScreenContent");
             }
         };
@@ -138,26 +212,67 @@ public class InterstitialModel extends InterstitialAbstract {
         this.actionCallBack = actionCallBack;
     }
 
+
     @Override
     public void showInter(Activity activity) {
-        if (mInterstitialAd != null) {
-            Log.e("iiiiiiiiiiiiiiii", " showInter" + "   " + adIsLoading);
-            if (adsDialog == null) {
-                adsDialog = new LoadingAdsDialog(activity);
-            }
-            if (!adIsLoading) {
-                adsDialog.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mInterstitialAd.show(activity);
-                    }
-                }, 2000L);
-            }
-
-        } else {
+        if (mInterstitialAd == null) {
             Log.e("iiiiiiiiiiiiiiii", " none showInter");
             loadAdmob(activity);
+            if (actionCallBack != null) {
+                actionCallBack.onNextAction();
+            }
+        } else {
+            Log.e("TIME_INTER_VAL", "showInter: " + TimeShowInter.isShowedInterSplash + "  " + TimeShowInter.showInterThenTimeStart() + "  "  + TimeShowInter.showInterThenTimeBetween());
+            if ((!TimeShowInter.isShowedInterSplash && TimeShowInter.showInterThenTimeStart()) || (TimeShowInter.isShowedInterSplash && TimeShowInter.showInterThenTimeBetween())) {
+                Log.e("iiiiiiiiiiiiiiii", " showInter" + "   " + adIsLoading);
+                handlerShowInter(activity);
+            } else {
+                Log.e("iiiiiiiiiiiiiiii", " none showInter");
+                if (actionCallBack != null) {
+                    actionCallBack.onNextAction();
+                }
+            }
         }
     }
+
+    @Override
+    public void showInterSplash(Activity activity) {
+        if (mInterstitialAd != null) {
+            handlerShowInter(activity);
+        } else {
+            Log.e("iiiiiiiiiiiiiiii", " none showInter");
+            loadInterSplash(activity);
+            if (actionCallBack != null) {
+                actionCallBack.onNextAction();
+            }
+        }
+    }
+
+    private void handlerShowInter(Activity activity) {
+        if (adsDialog == null) {
+            adsDialog = new LoadingAdsDialog(activity);
+        }
+        if (!adIsLoading) {
+            adsDialog.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mInterstitialAd.show(activity);
+
+                }
+            }, 1000L);
+        }
+    }
+
+
+    @Override
+    protected void setSubject(Subject subject) {
+        mSubject = subject;
+    }
+
+    @Override
+    public void setActivity(Activity activity) {
+        mActivity = activity;
+    }
+
 }
