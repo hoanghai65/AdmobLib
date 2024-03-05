@@ -34,9 +34,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    lint {
-        baseline = file("lint-baseline.xml")
-    }
+
 }
 
 java {
@@ -73,7 +71,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.hoanghai65"
             artifactId = "AdmobLib"
-            version = "1.0.0"
+            version = "1.0.5"
             pom {
                 description.set("First release")
             }
