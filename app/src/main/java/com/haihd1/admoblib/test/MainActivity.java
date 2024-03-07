@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.COLLAPSE_BANNER_POSITION;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager;
 import com.haihd1.abmoblibrary.adparam.AdUnit;
 import com.haihd1.abmoblibrary.remote_config.AppConfigs;
@@ -59,16 +60,18 @@ public class MainActivity extends AppCompatActivity {
                 !GoogleMobileAdsConsentManager.getInstance(this).getConsentResult(this),
                 () ->
                         AppConfigs.getInstance(getApplication(), R.xml.remote_ads, () -> {
-                    Log.e("ConfigTest", "onRemoteListener: " + AppConfigs.getBoolean("open_splash") );
-                    AdmobManager.getInstance().adsSplash(MainActivity.this,
-                            "ca-app-pub-3940256099942544/9257395921",
-                            "ca-app-pub-3940256099942544/1033173712",
-                            appOpenCallBack, interCallBack);
-                    AdmobManager.getInstance()
-                            .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
-                    AdmobManager.getInstance()
-                            .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
-                }
+                                    Log.e("ConfigTest", "onRemoteListener: " + AppConfigs.getBoolean("open_splash"));
+                                    AdmobManager.getInstance().adsSplash(MainActivity.this,
+                                            "ca-app-pub-3940256099942544/9257395921",
+                                            "ca-app-pub-3940256099942544/1033173712",
+                                            appOpenCallBack, interCallBack);
+                                    AdmobManager.getInstance()
+                                            .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
+//                                    AdmobManager.getInstance()
+//                                            .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
+
+                                    AdmobManager.getInstance().loadCollapseBanner(MainActivity.this, AdmobManager.id_test_collapse_banner, frameLayout2, COLLAPSE_BANNER_POSITION.top, getLifecycle(), true);
+                                }
 //        {
 //            AdUnit.setTimeInterBetween(40);
 //            AdUnit.setTimeFromStart(0);
@@ -86,10 +89,8 @@ public class MainActivity extends AppCompatActivity {
                         ));
 
 
-
-
-        AdmobManager.getInstance()
-                .loadBanner(this, "ca-app-pub-3940256099942544/9214589741", frameLayout3, getLifecycle(), true);
+//        AdmobManager.getInstance()
+//                .loadBanner(this, "ca-app-pub-3940256099942544/9214589741", frameLayout3, getLifecycle(), true);
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     @Override

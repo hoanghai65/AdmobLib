@@ -20,6 +20,28 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-keep class com.appsflyer.** { *; }
+-keep public class com.android.installreferrer.** { *; }
+-keep public class com.miui.referrer.** {*;}
+
+-keep class com.adjust.sdk.** { *; }
+-keep class com.google.android.gms.common.ConnectionResult {
+    int SUCCESS;
+}
+-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient {
+    com.google.android.gms.ads.identifier.AdvertisingIdClient$Info getAdvertisingIdInfo(android.content.Context);
+}
+-keep class com.google.android.gms.ads.identifier.AdvertisingIdClient$Info {
+    java.lang.String getId();
+    boolean isLimitAdTrackingEnabled();
+}
+-keep public class com.android.installreferrer.** { *; }
+
+-keep public class com.adjust.sdk.** { *; }
+
+-keep public class com.android.installreferrer.** { *; }
+
+
 -keep class com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native.NativeAbstract {*;}
 -keep class com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native.NativeManager {*;}
 -keep class com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.BannerAbstract {*;}

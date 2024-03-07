@@ -264,7 +264,6 @@ public class InterstitialModel extends InterstitialAbstract {
         }
     }
 
-
     @Override
     protected void setSubject(Subject subject) {
         mSubject = subject;

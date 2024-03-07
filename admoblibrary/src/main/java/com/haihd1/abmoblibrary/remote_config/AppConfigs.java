@@ -19,7 +19,6 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.haihd1.abmoblibrary.R;
 import com.haihd1.abmoblibrary.adparam.AdUnit;
 import com.haihd1.abmoblibrary.observer.Subject;
-import com.haihd1.abmoblibrary.observer.SubjectRemote;
 import com.haihd1.abmoblibrary.utils.LogUtils;
 import com.haihd1.abmoblibrary.utils.callback.RemoteConfigCallback;
 
