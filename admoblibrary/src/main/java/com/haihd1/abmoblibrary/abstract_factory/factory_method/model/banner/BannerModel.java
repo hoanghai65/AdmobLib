@@ -1,7 +1,9 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.Display;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
@@ -10,6 +12,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
@@ -90,25 +93,11 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
                             }
                         });
             }
-        }else {
+        } else {
             adContainerView.removeAllViews();
         }
 
     }
-
-//    @Override
-//    public void reloadAdmob(Activity activity) {
-//        try {
-//            if (AD_UNIT_ID != null && adContainerView != null) {
-//                initView(activity);
-//                loadBanner(activity);
-//                Log.e("zzzzzzzzzzzzz", "reloadAdmob:eee ");
-//            }
-//        } catch (Exception exception) {
-//            Log.e("zzzzzzzzzzzzz", "exception: " + exception.getMessage());
-//        }
-//
-//    }
 
     @Override
     public void reloadAdmob() {
@@ -122,6 +111,21 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
             Log.e("zzzzzzzzzzzzz", "exception: " + exception.getMessage());
         }
 
+    }
+
+    public AdView loadBanner1(Context context) {
+        adView = new AdView(context);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        adView.setAdSize(getAdSize(context));
+        onAdListener(adView);
+//        // Replace ad container with new ad view.
+//        adContainerView.removeAllViews();
+//        adContainerView.addView(adView);
+        // Start loading the ad in the background.
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        Log.e("bbbbbbbbbb", "loadBanner: adRequest " + AD_UNIT_ID);
+        return adView;
     }
 
 
@@ -146,8 +150,10 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
             }
             case ON_START: {
                 Log.e("LifeCycleEvent", "banner on start");
-                if (mReload) {
+                if (mReload && adView != null) {
+                    adView.destroy();
                     reloadAdmob();
+                    Log.e("bbbbbbbbbbbbbb", "banner on start");
                 }
                 break;
             }

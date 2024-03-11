@@ -1,12 +1,14 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;
@@ -38,11 +40,11 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
     public abstract void setReload(boolean reload);
 
 
-    protected void initView(Activity activity) {
+    public void initView(Context context) {
         try {
             if (adContainerView != null) {
-                if (CheckNetWork.isConnectNetWork(activity)) {
-                    View view = LayoutInflater.from(activity).inflate(R.layout.banner_shimmer, null);
+                if (CheckNetWork.isConnectNetWork(context)) {
+                    View view = LayoutInflater.from(context).inflate(R.layout.banner_shimmer, null);
                     adContainerView.removeAllViews();
                     adContainerView.addView(view);
                 }else {
@@ -56,9 +58,11 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
 
     }
 
-    protected AdSize getAdSize(Activity activity) {
+    protected AdSize getAdSize(Context context) {
+
         // Determine the screen width (less decorations) to use for the ad width.
-        Display display = activity.getWindowManager().getDefaultDisplay();
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
 
@@ -70,9 +74,8 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
         if (adWidthPixels == 0) {
             adWidthPixels = outMetrics.widthPixels;
         }
-
         int adWidth = (int) (adWidthPixels / density);
-        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, adWidth);
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWidth);
     }
 
 

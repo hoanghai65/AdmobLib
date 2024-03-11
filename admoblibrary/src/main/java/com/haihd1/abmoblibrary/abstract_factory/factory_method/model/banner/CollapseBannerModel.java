@@ -126,7 +126,8 @@ public class CollapseBannerModel extends BannerAbstract {
             }
             case ON_START: {
                 Log.e("LifeCycleEvent", "collapse on start");
-                if (mReload) {
+                if (mReload && adView != null) {
+                    adView.destroy();
                     reloadAdmob();
                 }
                 break;

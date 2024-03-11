@@ -55,10 +55,11 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
     implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-config:21.6.1")
+    implementation("com.google.firebase:firebase-config:21.6.3")
     implementation("com.google.firebase:firebase-crashlytics")
 
-    implementation("com.google.android.gms:play-services-ads:22.6.0")
+    implementation("com.google.android.gms:play-services-ads:23.0.0")
+
     implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.github.ybq:Android-SpinKit:1.4.0")
