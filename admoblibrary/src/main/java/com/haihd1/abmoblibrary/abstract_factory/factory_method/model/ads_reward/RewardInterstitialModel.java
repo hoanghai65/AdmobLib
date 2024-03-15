@@ -29,7 +29,6 @@ public class RewardInterstitialModel extends RewardAbstract {
     private String AD_UNIT_ID;
     private List<String> AD_LIST_ID;
     private Subject mSubject;
-    private Activity mActivity;
 
     @Override
     public void initId(String id) {

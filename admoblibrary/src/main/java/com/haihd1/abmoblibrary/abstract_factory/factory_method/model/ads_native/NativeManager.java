@@ -1,6 +1,7 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -39,48 +40,48 @@ public class NativeManager {
 
     ///-----------------------------------------
     // Native ads
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer) {
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer) {
         try {
             NativeAbstract nativeAds = (NativeAbstract) initNative(id,viewGroup,resource,layoutShimmer);
             if (nativeAds != null){
-                nativeAds.loadAdmob(activity);
+                nativeAds.loadAdmob(context);
             }
         } catch (Exception exception) {
             Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
         }
     }
 
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer, AdmobCallBack admobCallBack) {
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer, AdmobCallBack admobCallBack) {
         try {
             NativeAbstract nativeAds = (NativeAbstract) initNative(id,viewGroup,resource,layoutShimmer);
             if (nativeAds != null){
                 nativeAds.setAdmobCallBack(admobCallBack);
-                nativeAds.loadAdmob(activity);
+                nativeAds.loadAdmob(context);
             }
         } catch (Exception exception) {
             Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
         }
     }
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer,Lifecycle lifecycle,boolean reload) {
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer, Lifecycle lifecycle, boolean reload) {
         try {
             NativeAbstract nativeAds = (NativeAbstract) initNative(id,viewGroup,resource,layoutShimmer);
             if (nativeAds != null){
                 nativeAds.initLifecycle(lifecycle);
                 nativeAds.setReload(reload);
-                nativeAds.loadAdmob(activity);
+                nativeAds.loadAdmob(context);
             }
         } catch (Exception exception) {
             Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());
         }
     }
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer,Lifecycle lifecycle,boolean reload, AdmobCallBack admobCallBack) {
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer,Lifecycle lifecycle,boolean reload, AdmobCallBack admobCallBack) {
         try {
             NativeAbstract nativeAds = (NativeAbstract) initNative(id,viewGroup,resource,layoutShimmer);
             if (nativeAds != null){
                 nativeAds.initLifecycle(lifecycle);
                 nativeAds.setReload(reload);
                 nativeAds.setAdmobCallBack(admobCallBack);
-                nativeAds.loadAdmob(activity);
+                nativeAds.loadAdmob(context);
             }
         } catch (Exception exception) {
             Log.e("zzzzzzzzzzzz", "exception: " + exception.getMessage());

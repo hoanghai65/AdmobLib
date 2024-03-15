@@ -28,19 +28,19 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         frameLayout = findViewById(R.id.fr_ads);
-        btnEnter = findViewById(R.id.btn_enter);
+//        btnEnter = findViewById(R.id.btn_enter);
         interAds = AdmobManager.getInstance().createReward();
 //        interAds.loadInter(this,"ca-app-pub-3940256099942544/8691691433");
         interAds.loadRewardInter(this);
 
-        btnEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                interAds.showAdsRewardInter(MainActivity2.this);
-            }
-        });
-//        AdmobManager.getInstance()
-//                .loadNative(this, "ca-app-pub-3940256099942544/7342230711", frameLayout, R.layout.native_full_screen, R.layout.native_full_screen_shimmer);
+//        btnEnter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                interAds.showAdsRewardInter(MainActivity2.this);
+//            }
+//        });
+        AdmobManager.getInstance()
+                .loadNative(this, "ca-app-pub-3940256099942544/7342230711", frameLayout, R.layout.native_full_screen, R.layout.native_full_screen_shimmer);
 
     }
 

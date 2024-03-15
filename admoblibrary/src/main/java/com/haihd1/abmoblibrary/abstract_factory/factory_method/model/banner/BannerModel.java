@@ -42,11 +42,11 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
     }
 
     @Override
-    void loadBanner(Activity activity) {
+    void loadBanner(Context context) {
         // Create a new ad view.
-        adView = new AdView(activity);
+        adView = new AdView(context);
         adView.setAdUnitId(AD_UNIT_ID);
-        adView.setAdSize(getAdSize(activity));
+        adView.setAdSize(getAdSize(context));
         onAdListener(adView);
 //        // Replace ad container with new ad view.
 //        adContainerView.removeAllViews();
@@ -76,18 +76,18 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
 
 
     @Override
-    public void loadAdmob(Activity activity) {
-        mActivity = activity;
-        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
-            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-            initView(activity);
+    public void loadAdmob(Context context) {
+        mContext = context;
+        if (GoogleMobileAdsConsentManager.getInstance(context).getConsentResult(context)) {
+            AdmobManager.getInstance().initializeMobileAdsSdk(context);
+            initView(context);
             if (adContainerView != null) {
                 adContainerView.getViewTreeObserver()
                         .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                             @Override
                             public void onGlobalLayout() {
                                 if (!initialLayoutComplete.getAndSet(true)) {
-                                    loadBanner(activity);
+                                    loadBanner(context);
                                     Log.e("ttttttttttttttt", "loadBanner: loabBanner");
                                 }
                             }
@@ -102,9 +102,9 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
     @Override
     public void reloadAdmob() {
         try {
-            if (AD_UNIT_ID != null && adContainerView != null && mActivity != null && !isLoading) {
-                initView(mActivity);
-                loadBanner(mActivity);
+            if (AD_UNIT_ID != null && adContainerView != null && mContext != null && !isLoading) {
+                initView(mContext);
+                loadBanner(mContext);
                 Log.e("zzzzzzzzzzzzz", "reloadAdmob:eee ");
             }
         } catch (Exception exception) {

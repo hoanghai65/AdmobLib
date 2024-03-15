@@ -1,7 +1,9 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
@@ -66,12 +68,12 @@ public class NativeModel extends NativeAbstract {
     }
 
     @Override
-    public void loadAdmob(Activity activity) {
-        mActivity = activity;
-        if (GoogleMobileAdsConsentManager.getInstance(activity).getConsentResult(activity)) {
-            initView(activity);
+    public void loadAdmob(Context context) {
+        mContext = context;
+        if (GoogleMobileAdsConsentManager.getInstance(context).getConsentResult(context)) {
+            initView(context);
             Log.e("initializeMobileAdsSdk", "initializeMobileAdsSdk: " + AdmobManager.getInstance().getIsMobileAdsInitializeCalled().get());
-            AdmobManager.getInstance().initializeMobileAdsSdk(activity);
+            AdmobManager.getInstance().initializeMobileAdsSdk(context);
             if (adContainerView != null) {
                 Log.e("zzzzzzzzzzzzz", "reloadAdmob:ttt " + adContainerView);
                 adContainerView.getViewTreeObserver()
@@ -81,7 +83,7 @@ public class NativeModel extends NativeAbstract {
                                 Log.e("zzzzzzzzzzzz", "ccccccccccccccccccc: loadNative");
 
                                 if (!initialLayoutComplete.getAndSet(true)) {
-                                    loadNative(activity);
+                                    loadNative(context);
                                     Log.e("zzzzzzzzzzzz", "loadAdmob: loadNative");
                                 }
                             }
@@ -95,11 +97,10 @@ public class NativeModel extends NativeAbstract {
     @Override
     public void reloadAdmob() {
         try {
-            Log.e("nnnnnnnnnn", "reloadAdmob:eee " + isLoading + "  " + mActivity);
 
-            if (AD_UNIT_ID != null && adContainerView != null && mActivity != null && !isLoading) {
-                initView(mActivity);
-                loadNative(mActivity);
+            if (AD_UNIT_ID != null && adContainerView != null && mContext != null && !isLoading) {
+                initView(mContext);
+                loadNative(mContext);
             }
         } catch (Exception exception) {
             Log.e("nnnnnnnnnn", "exception: " + exception.getMessage());
@@ -119,9 +120,9 @@ public class NativeModel extends NativeAbstract {
 
 
     @Override
-    void loadNative(Activity activity) {
+    void loadNative(Context context) {
         Log.e("zzzzzzzzzzzzz", "loadNative: ");
-        AdLoader.Builder builder = new AdLoader.Builder(activity, AD_UNIT_ID);
+        AdLoader.Builder builder = new AdLoader.Builder(context, AD_UNIT_ID);
         VideoOptions videoOptions =
                 new VideoOptions.Builder().setStartMuted(false).setCustomControlsRequested(true).build();
         NativeAdOptions adOptions =
@@ -140,10 +141,10 @@ public class NativeModel extends NativeAbstract {
                             mNativeAd.destroy();
                         }
                         mNativeAd = nativeAd;
-                        nativeAdview = (NativeAdView) activity.getLayoutInflater().inflate(mResource, adContainerView, false);
+                        nativeAdview = (NativeAdView) LayoutInflater.from(context).inflate(mResource, adContainerView, false);
                         populateNativeAdView(nativeAd, nativeAdview);
                         replaceView();
-                        Log.e("nnnnnnnnnnn", "onNativeAdLoaded: 3   " + activity.hashCode() + "   " + AD_UNIT_ID);
+                        Log.e("nnnnnnnnnnn", "onNativeAdLoaded: 3   " + context.hashCode() + "   " + AD_UNIT_ID);
 
                     }
                 });

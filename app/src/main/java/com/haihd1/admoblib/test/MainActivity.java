@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
                                             appOpenCallBack, interCallBack);
                                     AdmobManager.getInstance()
                                             .loadNative(MainActivity.this, "ca-app-pub-3940256099942544/2247696110", frameLayout, R.layout.native_larger, R.layout.native_large_shimmer, getLifecycle(), true);
-//                                    AdmobManager.getInstance()
-//                                            .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout2, getLifecycle(), true);
+                                    AdmobManager.getInstance()
+                                            .loadBanner(MainActivity.this, "ca-app-pub-3940256099942544/6300978111", frameLayout3, getLifecycle(), true);
 
                                     AdmobManager.getInstance().loadCollapseBanner(MainActivity.this, AdmobManager.id_test_collapse_banner, frameLayout2, COLLAPSE_BANNER_POSITION.top, getLifecycle(), true);
                                 }

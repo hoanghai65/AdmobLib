@@ -20,6 +20,7 @@ public abstract class AppOpenAbstract extends AdsModel implements AdmobHelper {
     protected boolean isShowingAd = false;
     protected boolean enableAdsOpenResume = true;
     protected abstract void loadAds(Context context);
+    protected abstract void loadAdmob(Activity activity);
     protected abstract void loadAppOpenSplash(Context context,String id);
     protected abstract void setSubject(Subject subject);
 

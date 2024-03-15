@@ -12,7 +12,6 @@ public interface AdmobHelper {
     void initId(String id);
     void initListId(List<String> ids);
     void initLayout(ViewGroup viewGroup);
-    void loadAdmob(Activity activity);
     void reloadAdmob();
     void setAdmobCallBack(AdmobCallBack admobCallBack);
     void setActionCallBack(ActionCallBack admobCallBack);

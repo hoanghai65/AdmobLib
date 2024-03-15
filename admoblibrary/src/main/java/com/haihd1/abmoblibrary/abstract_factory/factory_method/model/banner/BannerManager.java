@@ -1,6 +1,6 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner;
 
-import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -55,77 +55,77 @@ public class BannerManager {
         return null;
     }
 
-    public void loadBanner(Activity activity, String id, ViewGroup frameLayout) {
+    public void loadBanner(Context context, String id, ViewGroup frameLayout) {
         BannerAbstract bannerAds = (BannerAbstract) initBanner(id, frameLayout);
         if (bannerAds != null) {
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
     }
 
-    public void loadBanner(Activity activity, String id, ViewGroup frameLayout, AdmobCallBack admobCallBack) {
+    public void loadBanner(Context context, String id, ViewGroup frameLayout, AdmobCallBack admobCallBack) {
         BannerAbstract bannerAds = (BannerAbstract) initBanner(id, frameLayout);
         if (bannerAds != null) {
             bannerAds.setAdmobCallBack(admobCallBack);
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
     }
 
 
-    public void loadBanner(Activity activity, Lifecycle lifecycle, String id, ViewGroup frameLayout, Boolean reload) {
+    public void loadBanner(Context context, Lifecycle lifecycle, String id, ViewGroup frameLayout, Boolean reload) {
         BannerAbstract bannerAds = (BannerAbstract) initBanner(id, frameLayout);
         if (bannerAds != null) {
             bannerAds.initLifecycle(lifecycle);
             bannerAds.setReload(reload);
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
     }
 
-    public void loadBanner(Activity activity, Lifecycle lifecycle, String id, ViewGroup frameLayout, Boolean reload, AdmobCallBack admobCallBack) {
+    public void loadBanner(Context context, Lifecycle lifecycle, String id, ViewGroup frameLayout, Boolean reload, AdmobCallBack admobCallBack) {
         BannerAbstract bannerAds = (BannerAbstract) initBanner(id, frameLayout);
         if (bannerAds != null) {
             bannerAds.initLifecycle(lifecycle);
             bannerAds.setReload(reload);
             bannerAds.setAdmobCallBack(admobCallBack);
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
     }
 
     ///-----------------------------------------
     // CollapseBanner ads
-    public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position) {
+    public void loadCollapseBanner(Context context, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position) {
         BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
         if (bannerAds != null) {
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
     }
 
-    public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, AdmobCallBack admobCallBack) {
+    public void loadCollapseBanner(Context context, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, AdmobCallBack admobCallBack) {
         BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
         if (bannerAds != null) {
             bannerAds.setAdmobCallBack(admobCallBack);
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
 
     }
 
 
-    public void loadCollapseBanner(Activity activity, Lifecycle lifecycle, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, boolean reload) {
+    public void loadCollapseBanner(Context context, Lifecycle lifecycle, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, boolean reload) {
         BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
         if (bannerAds != null) {
             bannerAds.initLifecycle(lifecycle);
             bannerAds.setReload(reload);
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
 
     }
 
-    public void loadCollapseBanner(Activity activity, Lifecycle lifecycle, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, boolean reload, AdmobCallBack admobCallBack) {
+    public void loadCollapseBanner(Context context, Lifecycle lifecycle, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, boolean reload, AdmobCallBack admobCallBack) {
         BannerAbstract bannerAds = (BannerAbstract) initCollapseBanner(id, frameLayout, position);
         if (bannerAds != null) {
             bannerAds.initLifecycle(lifecycle);
             bannerAds.setReload(reload);
             bannerAds.setAdmobCallBack(admobCallBack);
-            bannerAds.loadAdmob(activity);
+            bannerAds.loadAdmob(context);
         }
 
     }

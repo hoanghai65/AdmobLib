@@ -1,6 +1,7 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_reward;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.rewarded.RewardedAd;
@@ -14,7 +15,8 @@ public abstract class RewardAbstract  extends AdsModel implements AdmobHelper {
     protected RewardedInterstitialAd rewardedInterstitialAd;
     protected RewardedAd mRewarded;
     protected boolean adIsLoading;
-
+    protected Activity mActivity;
+    protected abstract void loadAdmob(Activity activity);
     public abstract void showAdsReward(Activity activity);
     protected abstract void setSubject(Subject subject);
     protected abstract void setActivity(Activity activity);

@@ -1,6 +1,6 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -56,11 +56,11 @@ public class CollapseBannerModel extends BannerAbstract {
     }
 
     @Override
-    void loadBanner(Activity activity) {
+    void loadBanner(Context context) {
         // Create a new ad view.
-        adView = new AdView(activity);
+        adView = new AdView(context);
         adView.setAdUnitId(AD_UNIT_ID);
-        adView.setAdSize(getAdSize(activity));
+        adView.setAdSize(getAdSize(context));
         onAdListener(adView);
 //        // Replace ad container with new ad view.
 //        adContainerView.removeAllViews();
@@ -76,17 +76,17 @@ public class CollapseBannerModel extends BannerAbstract {
     }
 
     @Override
-    public void loadAdmob(Activity activity) {
-        AdmobManager.getInstance().initializeMobileAdsSdk(activity);
-        mActivity = activity;
-        initView(activity);
+    public void loadAdmob(Context context) {
+        AdmobManager.getInstance().initializeMobileAdsSdk(context);
+        mContext = context;
+        initView(context);
         if (adContainerView != null) {
             adContainerView.getViewTreeObserver()
                     .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
                             if (!initialLayoutComplete.getAndSet(true)) {
-                                loadBanner(activity);
+                                loadBanner(context);
                                 Log.e("zzzzzzzzzzzz", "loadBanner: loabBanner");
                             }
                         }
@@ -97,9 +97,9 @@ public class CollapseBannerModel extends BannerAbstract {
     @Override
     public void reloadAdmob() {
         try {
-            if (AD_UNIT_ID != null && adContainerView != null && mActivity != null && !isLoading) {
-                initView(mActivity);
-                loadBanner(mActivity);
+            if (AD_UNIT_ID != null && adContainerView != null && mContext != null && !isLoading) {
+                initView(mContext);
+                loadBanner(mContext);
                 Log.e("zzzzzzzzzzzzz", "reloadAdmob:eee ");
             }
         } catch (Exception exception) {

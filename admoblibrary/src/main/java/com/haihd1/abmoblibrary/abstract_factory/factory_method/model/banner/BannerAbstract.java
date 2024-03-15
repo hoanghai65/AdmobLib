@@ -31,11 +31,12 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
     protected AdView adView;
     protected ViewGroup adContainerView;
     protected  Lifecycle mLifecycle ;
+    protected Context mContext;
 
 
-    abstract void loadBanner(Activity activity);
+    abstract void loadBanner(Context context);
     public abstract void initPosition(COLLAPSE_BANNER_POSITION position);
-
+    protected abstract void loadAdmob(Context context);
     public abstract void initLifecycle(Lifecycle lifecycle);
     public abstract void setReload(boolean reload);
 

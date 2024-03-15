@@ -175,58 +175,58 @@ public class AdmobManager extends Observer {
     }
 
     /// banner ads
-    public void loadBanner(Activity activity, String id, ViewGroup frameLayout) {
-        BannerManager.getInstance().loadBanner(activity, id, frameLayout);
+    public void loadBanner(Context context, String id, ViewGroup frameLayout) {
+        BannerManager.getInstance().loadBanner(context, id, frameLayout);
     }
 
-    public void loadBanner(Activity activity, String id, ViewGroup frameLayout, AdmobCallBack admobCallBack) {
-        BannerManager.getInstance().loadBanner(activity, id, frameLayout, admobCallBack);
+    public void loadBanner(Context context, String id, ViewGroup frameLayout, AdmobCallBack admobCallBack) {
+        BannerManager.getInstance().loadBanner(context, id, frameLayout, admobCallBack);
     }
 
 
-    public void loadBanner(Activity activity, String id, ViewGroup frameLayout, Lifecycle lifecycle, Boolean reload) {
-        BannerManager.getInstance().loadBanner(activity, lifecycle, id, frameLayout, reload);
+    public void loadBanner(Context context, String id, ViewGroup frameLayout, Lifecycle lifecycle, Boolean reload) {
+        BannerManager.getInstance().loadBanner(context, lifecycle, id, frameLayout, reload);
     }
 
-    public void loadBanner(Activity activity, String id, ViewGroup frameLayout, Boolean reload, Lifecycle lifecycle, AdmobCallBack admobCallBack) {
-        BannerManager.getInstance().loadBanner(activity, lifecycle, id, frameLayout, reload, admobCallBack);
+    public void loadBanner(Context context, String id, ViewGroup frameLayout, Boolean reload, Lifecycle lifecycle, AdmobCallBack admobCallBack) {
+        BannerManager.getInstance().loadBanner(context, lifecycle, id, frameLayout, reload, admobCallBack);
     }
 
     ///-----------------------------------------
     // CollapseBanner ads
-    public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position) {
-        BannerManager.getInstance().loadCollapseBanner(activity, id, frameLayout, position);
+    public void loadCollapseBanner(Context context, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position) {
+        BannerManager.getInstance().loadCollapseBanner(context, id, frameLayout, position);
     }
 
-    public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, AdmobCallBack admobCallBack) {
-        BannerManager.getInstance().loadCollapseBanner(activity, id, frameLayout, position, admobCallBack);
+    public void loadCollapseBanner(Context context, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, AdmobCallBack admobCallBack) {
+        BannerManager.getInstance().loadCollapseBanner(context, id, frameLayout, position, admobCallBack);
     }
 
 
-    public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, Lifecycle lifecycle, boolean reload) {
-        BannerManager.getInstance().loadCollapseBanner(activity, lifecycle, id, frameLayout, position, reload);
+    public void loadCollapseBanner(Context context, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, Lifecycle lifecycle, boolean reload) {
+        BannerManager.getInstance().loadCollapseBanner(context, lifecycle, id, frameLayout, position, reload);
     }
 
-    public void loadCollapseBanner(Activity activity, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, Lifecycle lifecycle, boolean reload, AdmobCallBack admobCallBack) {
-        BannerManager.getInstance().loadCollapseBanner(activity, lifecycle, id, frameLayout, position, reload, admobCallBack);
+    public void loadCollapseBanner(Context context, String id, ViewGroup frameLayout, COLLAPSE_BANNER_POSITION position, Lifecycle lifecycle, boolean reload, AdmobCallBack admobCallBack) {
+        BannerManager.getInstance().loadCollapseBanner(context, lifecycle, id, frameLayout, position, reload, admobCallBack);
     }
 
     ///-----------------------------------------
     // Native ads
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer) {
-        NativeManager.getInstance().loadNative(activity, id, viewGroup, resource, layoutShimmer);
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer) {
+        NativeManager.getInstance().loadNative(context, id, viewGroup, resource, layoutShimmer);
     }
 
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer, AdmobCallBack admobCallBack) {
-        NativeManager.getInstance().loadNative(activity, id, viewGroup, resource, layoutShimmer, admobCallBack);
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer, AdmobCallBack admobCallBack) {
+        NativeManager.getInstance().loadNative(context, id, viewGroup, resource, layoutShimmer, admobCallBack);
     }
 
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer, Lifecycle lifecycle, boolean reload) {
-        NativeManager.getInstance().loadNative(activity, id, viewGroup, resource, layoutShimmer, lifecycle, reload);
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer, Lifecycle lifecycle, boolean reload) {
+        NativeManager.getInstance().loadNative(context, id, viewGroup, resource, layoutShimmer, lifecycle, reload);
     }
 
-    public void loadNative(Activity activity, String id, ViewGroup viewGroup, int resource, int layoutShimmer, Lifecycle lifecycle, boolean reload, AdmobCallBack admobCallBack) {
-        NativeManager.getInstance().loadNative(activity, id, viewGroup, resource, layoutShimmer, lifecycle, reload, admobCallBack);
+    public void loadNative(Context context, String id, ViewGroup viewGroup, int resource, int layoutShimmer, Lifecycle lifecycle, boolean reload, AdmobCallBack admobCallBack) {
+        NativeManager.getInstance().loadNative(context, id, viewGroup, resource, layoutShimmer, lifecycle, reload, admobCallBack);
     }
 
     //----------------------

@@ -12,7 +12,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class AdsModel {
     protected AdmobCallBack admobCallBack;
     protected ActionCallBack actionCallBack;
-    protected Activity mActivity;
     protected boolean isLoading = true;
     protected boolean mReload = false;
     protected AtomicBoolean initialLayoutComplete = new AtomicBoolean(false);

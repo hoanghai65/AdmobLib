@@ -1,6 +1,7 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.ads_native;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +32,14 @@ public abstract class NativeAbstract extends AdsModel implements AdmobHelper, Li
     protected Lifecycle mLifecycle;
     protected int mResource;
     protected int mShimmer;
+    protected Context mContext;
     protected AdLoader adLoader;
 
     public abstract void initLifecycle(Lifecycle lifecycle);
 
-    abstract void loadNative(Activity activity);
+    abstract void loadNative(Context context);
+
+    protected abstract void loadAdmob(Context context);
 
     public abstract void initResource(int resource);
 
@@ -43,11 +47,11 @@ public abstract class NativeAbstract extends AdsModel implements AdmobHelper, Li
 
     public abstract void setReload(boolean reload);
 
-    protected void initView(Activity activity) {
+    protected void initView(Context context) {
         try {
             if (adContainerView != null) {
-                if (CheckNetWork.isConnectNetWork(activity)) {
-                    View view = LayoutInflater.from(activity).inflate(mShimmer, null);
+                if (CheckNetWork.isConnectNetWork(context)) {
+                    View view = LayoutInflater.from(context).inflate(mShimmer, null);
                     adContainerView.removeAllViews();
                     adContainerView.addView(view);
                     Log.e("zzzzzzzzz", "initView: ");

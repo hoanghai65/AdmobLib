@@ -17,7 +17,9 @@ public abstract class InterstitialAbstract extends AdsModel implements AdmobHelp
     protected InterstitialAd mInterstitialAd;
     protected boolean adIsLoading;
     protected boolean isNotInterSplash = true;
+    protected Activity mActivity;
 
+    protected abstract void loadAdmob(Activity activity);
     public abstract void loadInterSplash(Activity activity);
     public abstract void showInter(Activity activity);
     public abstract void showInterSplash(Activity activity);
