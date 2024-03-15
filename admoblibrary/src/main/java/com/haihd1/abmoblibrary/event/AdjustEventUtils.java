@@ -26,7 +26,7 @@ public class AdjustEventUtils {
         }
     }
 
-    private void trackRevenue(@Nullable AdapterResponseInfo loadedAdapterResponseInfo, AdValue adValue) {
+    public void trackRevenue(@Nullable AdapterResponseInfo loadedAdapterResponseInfo, AdValue adValue) {
         String adName = "";
         if (loadedAdapterResponseInfo != null)
             adName = loadedAdapterResponseInfo.getAdSourceName();

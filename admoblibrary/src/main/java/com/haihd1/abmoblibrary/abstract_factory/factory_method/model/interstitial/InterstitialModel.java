@@ -14,6 +14,8 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
+import com.haihd1.abmoblibrary.event.AdjustEventUtils;
+import com.haihd1.abmoblibrary.event.AppsflyerEventUtils;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
@@ -192,6 +194,12 @@ public class InterstitialModel extends InterstitialAbstract {
             @Override
             public void onAdImpression() {
                 super.onAdImpression();
+                mInterstitialAd.setOnPaidEventListener(adValue -> {
+                    AdjustEventUtils.getInstance().trackRevenue(mInterstitialAd.getResponseInfo().getLoadedAdapterResponseInfo(), adValue);
+                    AppsflyerEventUtils.logPaidAdImpression(activity,
+                            adValue,
+                            AD_UNIT_ID, TYPE.INTER);
+                });
                 if (admobCallBack != null) {
                     admobCallBack.onAdImpression();
                 }

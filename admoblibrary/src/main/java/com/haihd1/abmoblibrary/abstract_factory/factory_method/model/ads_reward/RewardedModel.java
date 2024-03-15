@@ -19,6 +19,8 @@ import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.LoadingAdsDialog;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
 import com.haihd1.abmoblibrary.admob_builder.GoogleMobileAdsConsentManager;
+import com.haihd1.abmoblibrary.event.AdjustEventUtils;
+import com.haihd1.abmoblibrary.event.AppsflyerEventUtils;
 import com.haihd1.abmoblibrary.observer.Subject;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
@@ -188,6 +190,12 @@ public class RewardedModel extends RewardAbstract{
             @Override
             public void onAdImpression() {
                 super.onAdImpression();
+                rewardedInterstitialAd.setOnPaidEventListener(adValue -> {
+                    AdjustEventUtils.getInstance().trackRevenue(rewardedInterstitialAd.getResponseInfo().getLoadedAdapterResponseInfo(), adValue);
+                    AppsflyerEventUtils.logPaidAdImpression(activity,
+                            adValue,
+                            AD_UNIT_ID, TYPE.REWARDED);
+                });
                 if (admobCallBack != null) {
                     admobCallBack.onAdImpression();
                 }

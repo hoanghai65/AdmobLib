@@ -13,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
@@ -61,7 +62,7 @@ public class CollapseBannerModel extends BannerAbstract {
         adView = new AdView(context);
         adView.setAdUnitId(AD_UNIT_ID);
         adView.setAdSize(getAdSize(context));
-        onAdListener(adView);
+        onAdListener(adView, TYPE.COLLAPSE_BANNER);
 //        // Replace ad container with new ad view.
 //        adContainerView.removeAllViews();
 //        adContainerView.addView(adView);

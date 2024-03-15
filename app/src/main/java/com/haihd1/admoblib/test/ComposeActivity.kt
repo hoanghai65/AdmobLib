@@ -1,7 +1,5 @@
 package com.haihd1.admoblib.test
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
@@ -9,16 +7,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner.BannerModel
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.open_resume.AppOpenAdManager
@@ -62,7 +57,7 @@ fun AdmobBanner(modifier: Modifier = Modifier) {
                 val frameLayout = FrameLayout(context)
                 bannerModel.initLayout(frameLayout)
                 bannerModel.initView(context)
-                bannerModel.loadBanner1(context)
+                bannerModel.loadBannerCompose(context)
                 frameLayout
             },
         )

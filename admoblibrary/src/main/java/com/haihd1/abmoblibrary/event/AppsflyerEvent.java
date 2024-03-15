@@ -9,6 +9,7 @@ import com.appsflyer.adrevenue.AppsFlyerAdRevenue;
 import com.appsflyer.adrevenue.adnetworks.generic.MediationNetwork;
 import com.appsflyer.adrevenue.adnetworks.generic.Scheme;
 import com.google.android.gms.ads.AdValue;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 
 import java.util.Currency;
 import java.util.HashMap;
@@ -43,7 +44,7 @@ public class AppsflyerEvent {
         AppsFlyerLib.getInstance().setDebugLog(enableDebugLog);
     }
 
-    public static void pushTrackEventAdmob(AdValue adValue, String idAd, AdType adType) {
+    public void pushTrackEventAdmob(AdValue adValue, String idAd, TYPE adType) {
         Log.e(TAG, "logPaidAdImpression  enableAppsflyer:"+enableTrackingRevenue+ " --- value: "+adValue.getValueMicros() / 1000000.0 + " -- adType: " +adType.toString());
         if (enableTrackingRevenue) {
             Map<String, String> customParams = new HashMap<>();

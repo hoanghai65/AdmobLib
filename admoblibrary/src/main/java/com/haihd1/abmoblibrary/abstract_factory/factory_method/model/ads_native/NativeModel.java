@@ -20,6 +20,9 @@ import com.google.android.gms.ads.VideoOptions;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.nativead.NativeAdView;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
+import com.haihd1.abmoblibrary.event.AdjustEventUtils;
+import com.haihd1.abmoblibrary.event.AppsflyerEventUtils;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
@@ -176,6 +179,12 @@ public class NativeModel extends NativeAbstract {
                     @Override
                     public void onAdImpression() {
                         super.onAdImpression();
+                        mNativeAd.setOnPaidEventListener(adValue -> {
+                            AdjustEventUtils.getInstance().trackRevenue(mNativeAd.getResponseInfo().getLoadedAdapterResponseInfo(), adValue);
+                            AppsflyerEventUtils.logPaidAdImpression(mContext,
+                                    adValue,
+                                   AD_UNIT_ID, TYPE.NATIVE);
+                        });
                         admobCallBack.onAdImpression();
                     }
 

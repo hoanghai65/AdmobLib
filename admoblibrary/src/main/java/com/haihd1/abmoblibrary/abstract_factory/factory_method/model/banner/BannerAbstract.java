@@ -24,8 +24,14 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.haihd1.abmoblibrary.R;
 import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.AdsModel;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
+import com.haihd1.abmoblibrary.event.AdType;
+import com.haihd1.abmoblibrary.event.AdjustEventUtils;
+import com.haihd1.abmoblibrary.event.AppsflyerEventUtils;
 import com.haihd1.abmoblibrary.utils.CheckNetWork;
+
+import java.lang.reflect.Type;
 
 public abstract class BannerAbstract extends AdsModel implements AdmobHelper, LifecycleEventObserver {
     protected AdView adView;
@@ -93,7 +99,7 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
         }
     }
 
-    protected void onAdListener(AdView adView) {
+    protected void onAdListener(AdView adView, TYPE type) {
         adView.setAdListener(new AdListener() {
             @Override
             public void onAdClicked() {
@@ -120,7 +126,15 @@ public abstract class BannerAbstract extends AdsModel implements AdmobHelper, Li
             public void onAdImpression() {
                 super.onAdImpression();
                 Log.e("zzzzzzzzzzzz", "onAdImpression: ");
+                adView.setOnPaidEventListener(adValue -> {
+                    AdjustEventUtils.getInstance().trackRevenue(adView.getResponseInfo().getLoadedAdapterResponseInfo(), adValue);
+                    AppsflyerEventUtils.logPaidAdImpression(mContext,
+                            adValue,
+                            adView.getAdUnitId(), type);
+                });
                 admobCallBack.onAdImpression();
+
+
             }
 
             @Override

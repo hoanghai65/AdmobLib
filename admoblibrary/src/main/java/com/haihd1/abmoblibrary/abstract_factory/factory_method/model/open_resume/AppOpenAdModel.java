@@ -14,6 +14,8 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
+import com.haihd1.abmoblibrary.event.AdjustEventUtils;
+import com.haihd1.abmoblibrary.event.AppsflyerEventUtils;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.interstitial.LoadingAdsDialog;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
@@ -292,6 +294,12 @@ public class AppOpenAdModel extends AppOpenAbstract {
                 super.onAdImpression();
                 Log.d(LOG_TAG, "onAdImpression.");
                 isShowingAd = true;
+                mAppOpenAd.setOnPaidEventListener(adValue -> {
+                    AdjustEventUtils.getInstance().trackRevenue(mAppOpenAd.getResponseInfo().getLoadedAdapterResponseInfo(), adValue);
+                    AppsflyerEventUtils.logPaidAdImpression(activity,
+                            adValue,
+                            AD_UNIT_ID, TYPE.APP_OPEN);
+                });
                 if (admobCallBack != null) {
                     admobCallBack.onAdImpression();
                 }

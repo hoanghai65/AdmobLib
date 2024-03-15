@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.android.gms.ads.AdValue;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 
 public class AppsflyerEventUtils {
     private static final String TAG = "FirebaseAnalyticsUtil";
@@ -20,7 +21,7 @@ public class AppsflyerEventUtils {
         FacebookEventUtils.logClickAdsEvent(context, bundle);
     }
 
-    public static void logPaidAdImpression(Context context, AdValue adValue, String adUnitId, AdType adType) {
+    public static void logPaidAdImpression(Context context, AdValue adValue, String adUnitId, TYPE adType) {
         Log.e("logPaidAdImpression",adValue.getCurrencyCode()+"");
         AppsflyerEvent.getInstance().pushTrackEventAdmob(adValue,adUnitId,adType);
         logEventWithAds(context, (float) adValue.getValueMicros(), adValue.getPrecisionType(), adUnitId, adType.toString(),adValue.getCurrencyCode());
@@ -64,7 +65,6 @@ public class AppsflyerEventUtils {
         params.putInt("precision", precision);
         params.putString("adunitid", adunitid);
         params.putString("network", network);
-
 
         FirebaseAnalyticsUtil.logPaidAdImpressionValue(context, params);
         FacebookEventUtils.logPaidAdImpressionValue(context, params);

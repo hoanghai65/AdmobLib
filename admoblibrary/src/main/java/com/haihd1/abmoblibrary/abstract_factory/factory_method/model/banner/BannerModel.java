@@ -1,9 +1,7 @@
 package com.haihd1.abmoblibrary.abstract_factory.factory_method.model.banner;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.Display;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
@@ -12,9 +10,9 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.haihd1.abmoblibrary.abstract_factory.AdmobHelper;
+import com.haihd1.abmoblibrary.abstract_factory.factory_method.model.TYPE;
 import com.haihd1.abmoblibrary.utils.callback.ActionCallBack;
 import com.haihd1.abmoblibrary.utils.callback.AdmobCallBack;
 import com.haihd1.abmoblibrary.admob_builder.AdmobManager;
@@ -47,7 +45,7 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
         adView = new AdView(context);
         adView.setAdUnitId(AD_UNIT_ID);
         adView.setAdSize(getAdSize(context));
-        onAdListener(adView);
+        onAdListener(adView, TYPE.BANNER);
 //        // Replace ad container with new ad view.
 //        adContainerView.removeAllViews();
 //        adContainerView.addView(adView);
@@ -113,11 +111,11 @@ public class BannerModel extends BannerAbstract implements AdmobHelper {
 
     }
 
-    public AdView loadBanner1(Context context) {
+    public AdView loadBannerCompose(Context context) {
         adView = new AdView(context);
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
         adView.setAdSize(getAdSize(context));
-        onAdListener(adView);
+        onAdListener(adView,TYPE.BANNER);
 //        // Replace ad container with new ad view.
 //        adContainerView.removeAllViews();
 //        adContainerView.addView(adView);
