@@ -19,7 +19,7 @@ import java.util.Map;
 public class AppsflyerEvent {
     private static final String TAG = "AppsflyerEvent";
     private static AppsflyerEvent appsflyerEvent;
-    public static boolean enableTrackingRevenue = false;
+    public  boolean enableTrackingRevenue = false;
     private Context context;
     public AppsflyerEvent() {
     }
