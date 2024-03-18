@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.haihd1.abmoblibrary"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -19,10 +19,10 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                     "proguard-rules.pro"
             )
         }
     }
@@ -63,6 +63,8 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("com.github.ybq:Android-SpinKit:1.4.0")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation ("androidx.lifecycle:lifecycle-common:2.7.0")
     implementation("androidx.multidex:multidex:2.0.1")
 
     // appsflyer
@@ -70,6 +72,7 @@ dependencies {
     implementation("com.appsflyer:adrevenue:6.4.3")
     implementation("com.android.installreferrer:installreferrer:2.2")
     implementation("com.miui.referrer:homereferrer:1.0.0.6")
+
 
     //adjust
     implementation ("com.adjust.sdk:adjust-android:4.38.0")
@@ -83,16 +86,11 @@ dependencies {
 }
 
 publishing {
-    publishing {
-        publications {
-            register<MavenPublication>("release") {
-                afterEvaluate {
-                    from(components["release"])
-                }
+    publications {
+        register<MavenPublication>("release") {
+            afterEvaluate {
+                from(components["release"])
             }
         }
-    }
-    repositories {
-        mavenLocal()
     }
 }

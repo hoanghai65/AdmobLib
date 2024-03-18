@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.adjust.sdk.Adjust;
 import com.adjust.sdk.AdjustAdRevenue;
 import com.adjust.sdk.AdjustConfig;
+import com.adjust.sdk.LogLevel;
 import com.google.android.gms.ads.AdValue;
 import com.google.android.gms.ads.AdapterResponseInfo;
 
@@ -14,9 +15,9 @@ public class AdjustEventUtils {
 
     private static AdjustEventUtils INSTANCE = null;
 
-    private AdjustEventUtils(){
 
-    }
+
+
     public static AdjustEventUtils getInstance(){
         synchronized (AdjustEventUtils.class){
             if (INSTANCE == null){

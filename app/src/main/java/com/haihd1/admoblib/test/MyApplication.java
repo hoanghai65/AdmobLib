@@ -9,4 +9,19 @@ public class MyApplication extends AdsApplication {
     protected String initAppOpenResume() {
         return AdUnit.getAdmobOpenId();
     }
+
+    @Override
+    public String getAppTokenAdjust() {
+        return null;
+    }
+
+    @Override
+    public String getFacebookID() {
+        return null;
+    }
+
+    @Override
+    protected boolean isSetUpAdjust() {
+        return false;
+    }
 }

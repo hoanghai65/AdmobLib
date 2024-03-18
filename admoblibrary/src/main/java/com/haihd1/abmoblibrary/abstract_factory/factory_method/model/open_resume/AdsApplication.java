@@ -12,15 +12,21 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDexApplication;
 
+import com.adjust.sdk.Adjust;
+import com.adjust.sdk.AdjustConfig;
+import com.adjust.sdk.LogLevel;
 import com.google.android.gms.ads.AdActivity;
 
 public abstract class AdsApplication extends MultiDexApplication implements Application.ActivityLifecycleCallbacks, DefaultLifecycleObserver {
     private Activity currentActivity;
     private AppOpenAbstract appOpenAdManager;
     private boolean conditionShowAds = false;
-    protected String idAppOpenResume;
 
     protected abstract String initAppOpenResume();
+    public abstract String getAppTokenAdjust();
+
+    public abstract String getFacebookID();
+    protected abstract boolean isSetUpAdjust();
 //    public abstract void initId(String id);
 
     public interface OnShowAdCompleteListener {
@@ -33,6 +39,9 @@ public abstract class AdsApplication extends MultiDexApplication implements Appl
         this.registerActivityLifecycleCallbacks(this);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
         appOpenAdManager = AppOpenAdManager.getInstance().getAppOpen();
+        if (isSetUpAdjust()){
+            setUpAdjust();
+        }
         Log.e("aaaaaaaaaaaaa", "onCreate: " + this.getClass().getSimpleName());
 //        AdmobManager.getInstance().initializeMobileAdsSdk(this);
 
@@ -51,7 +60,18 @@ public abstract class AdsApplication extends MultiDexApplication implements Appl
 
 
     }
-
+    public void setUpAdjust() {
+        String environment;
+        environment = AdjustConfig.ENVIRONMENT_PRODUCTION;
+        AdjustConfig config = new AdjustConfig(this, getAppTokenAdjust(), environment);
+        config.setLogLevel(LogLevel.VERBOSE);
+        config.setFbAppId(getFacebookID());
+        config.setDefaultTracker(getAppTokenAdjust());
+        config.setSendInBackground(true);
+        Adjust.onCreate(config);
+        // Enable the SDK
+        Adjust.setEnabled(true);
+    }
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
         appOpenAdManager.initId(initAppOpenResume());
@@ -95,12 +115,14 @@ public abstract class AdsApplication extends MultiDexApplication implements Appl
     @Override
     public void onActivityResumed(@NonNull Activity activity) {
         Log.e("aaaaaaaaaaaaa", "onActivityResumed: ");
+        Adjust.onResume();
 
     }
 
     @Override
     public void onActivityPaused(@NonNull Activity activity) {
         Log.e("aaaaaaaaaaaaa", "onActivityPaused: ");
+        Adjust.onPause();
     }
 
     @Override
