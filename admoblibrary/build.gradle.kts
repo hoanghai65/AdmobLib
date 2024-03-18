@@ -12,7 +12,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         multiDexEnabled = true
@@ -20,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -84,13 +83,12 @@ dependencies {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = "com.github.hoanghai65"
-            artifactId = "AdmobLib"
-            version = "1.1.0"
-            pom {
-                description.set("First release")
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                afterEvaluate {
+                    from(components["release"])
+                }
             }
         }
     }
